@@ -1,40 +1,16 @@
 import { useState } from "react";
 import "./App.css";
+import Header from "../components/App/Header/Header.jsx";
+import Footer from "./App/Footer/Footer.jsx";
 
 function App() {
   return (
-    <>
-      <p
-        style={{
-          fontFamily: "CabinetGrotesk",
-          fontSize: "16px",
-          fontWeight: 500,
-          lineHeight: "20px",
-        }}
-      >
-        Testing Paragraph
-      </p>
-      <h1
-        style={{
-          fontFamily: "CabinetGrotesk",
-          fontSize: "20px",
-          fontWeight: 700,
-          lineHeight: "24px",
-        }}
-      >
-        Testing Heading
-      </h1>
-      <h2
-        style={{
-          fontFamily: "CabinetGrotesk",
-          fontSize: "16px",
-          fontWeight: 700,
-          lineHeight: "20px",
-        }}
-      >
-        Testing Heading
-      </h2>
-    </>
+    <div className="app">
+      <div className="app__wrapper">
+        <Header />
+        <Footer />
+      </div>
+    </div>
   );
 }
 
