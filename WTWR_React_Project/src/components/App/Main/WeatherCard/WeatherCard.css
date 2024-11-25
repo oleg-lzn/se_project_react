@@ -1,0 +1,25 @@
+.weatherCard__container {
+  position: relative;
+  display: flex;
+  height: 80px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.weatherCard__container_image {
+  object-fit: cover;
+  object-position: right top;
+  width: 100%;
+}
+
+.weatherCard__container__title {
+  position: absolute;
+  font-family: Cabinet Grotesk;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 40px;
+  color: #fff;
+  top: 20px;
+  left: 16px;
+  margin: 0;
+}
