@@ -5,12 +5,17 @@ import { defaultClothingItems } from "../../../utils/items";
 import "./Main.css";
 
 function Main(props) {
-  console.log(props);
+  // console.log(props);
   const [currentTemp, setCurrentTemp] = useState("Loading temperature..");
+
+  function handleCardClick() {}
+
+  function onClose() {}
 
   useEffect(() => {
     setCurrentTemp(props.temp);
   }, [props.temp]);
+
   return (
     <main className="main">
       <WeatherCard temp={props.temp} />

@@ -8,6 +8,7 @@ function ItemCard(props) {
         className="card__image"
         src={props.item.link}
         alt={props.item.name}
+        // onclick= {handleCardClick}
       />
     </div>
   );
