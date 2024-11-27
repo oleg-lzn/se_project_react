@@ -30,7 +30,9 @@ function Header(props) {
       <p className="header__date-location">
         {currentDate}, {currentLocation}
       </p>
-      <button className="header__button-add-clothes">+ Add Clothes</button>
+      <button className="header__button-add-clothes" type="button">
+        + Add Clothes
+      </button>
       <div className="header__user">
         <p className="header__profile-name">Oleg Luzenin</p>
         <img className="header__avatar" src={avatar_true} alt="Avatar image" />
@@ -40,3 +42,5 @@ function Header(props) {
 }
 
 export default Header;
+
+// onclick={handleClick}

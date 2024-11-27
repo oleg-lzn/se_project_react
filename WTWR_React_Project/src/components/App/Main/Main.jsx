@@ -1,5 +1,5 @@
-import ItemCard from "./ItemCard/ItemCard";
 import { useState, useEffect } from "react";
+import ItemCard from "./ItemCard/ItemCard";
 import WeatherCard from "./WeatherCard/WeatherCard";
 import { defaultClothingItems } from "../../../utils/items";
 import "./Main.css";
@@ -7,10 +7,7 @@ import "./Main.css";
 function Main(props) {
   // console.log(props);
   const [currentTemp, setCurrentTemp] = useState("Loading temperature..");
-
-  function handleCardClick() {}
-
-  function onClose() {}
+  const [modalState, setModalState] = useState("closed");
 
   useEffect(() => {
     setCurrentTemp(props.temp);

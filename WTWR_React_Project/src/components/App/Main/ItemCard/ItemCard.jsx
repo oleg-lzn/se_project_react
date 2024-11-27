@@ -2,7 +2,7 @@ import "./ItemCard.css";
 
 function ItemCard(props) {
   return (
-    <div className="card">
+    <li className="card">
       <h2 className="card__name">{props.item.name}</h2>
       <img
         className="card__image"
@@ -10,7 +10,7 @@ function ItemCard(props) {
         alt={props.item.name}
         // onclick= {handleCardClick}
       />
-    </div>
+    </li>
   );
 }
 

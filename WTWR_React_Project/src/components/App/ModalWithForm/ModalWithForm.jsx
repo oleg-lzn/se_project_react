@@ -2,62 +2,85 @@ import { useState, useEffect } from "react";
 import "./ModalWithForm.css";
 
 function ModalWithForm(props) {
-  const [open, openModal] = useState("close");
-
   return (
-    <div className="modal">
+    <div className="modal" id="add_clothes_id">
       <div className="modal__container">
-        <button className="modal__close"></button>
-        <p className="modal__name">New Garment</p>
-        <form action="" novalidate id="add-form">
-          <div class="modal__form-group">
-            <input
-              class="modal__input"
-              className={`modal modal_type_${props.name}`}
-              minlength="2"
-              maxlength="40"
-              type="text"
-              placeholder="Name"
-              required
-              id="name-input"
-            />
-            <span class="modal__error" id="name-input-error"></span>
+        <h2 className="modal__name">New Garment</h2>
+        <button type="button" className="modal__close"></button>
+        <form className="modal__form">
+          <div className="modal__form-group">
+            <label htmlFor="name" className="modal__lable">
+              Name {""}
+              <input
+                className="modal__input"
+                type="text"
+                placeholder="Name"
+                required
+                id="name"
+              />
+            </label>
+            <span className="modal__error" id="name-input-error"></span>
           </div>
-          <div class="modal__form-group">
-            <input
-              class="modal__input"
-              className={`modal modal_type_${props.link}`}
-              minlength="2"
-              maxlength="200"
-              type="url"
-              placeholder="Image URL"
-              required
-              id="url-input"
-            />
-            <span class="modal__error" id="url-input-error"></span>
+          <div className="modal__form-group">
+            <label htmlFor="imageUrl" className="modal__lable">
+              Image {""}
+              <input
+                className="modal__input"
+                type="url"
+                placeholder="Image URL"
+                required
+                id="imageUrl"
+              />
+            </label>
+            <span className="modal__error" id="url-input-error"></span>
           </div>
-          <p className="modal__button_chose">Select the weather type:</p>
-          <div class="modal__form-group">
-            <div class="modal__checkbox-item">
-              <input type="checkbox" id="hot" name="option1" />
-              <label for="option1">{props.feeling}</label>
-            </div>
-            <div class="modal__checkbox-item">
-              <input type="checkbox" id="warm" name="option2" />
-              <label for="option2">{props.feeling}</label>
-            </div>
-            <div class="modal__checkbox-item">
-              <input type="checkbox" id="cold" name="option3" />
-              <label for="option3">{props.feeling}</label>
-            </div>
-          </div>
+          <fieldset className="modal__radio-buttons">
+            <legend className="modal__legend">Select the weather type:</legend>
+            <label
+              htmlFor="hot"
+              className="modal__label modal__label_type_radio"
+            >
+              <input
+                id="hot"
+                type="radio"
+                className="modal__radio-input"
+                name="temperature"
+              />{" "}
+              Hot
+            </label>
+            <label
+              htmlFor="warm"
+              className="modal__label modal__label_type_radio"
+            >
+              <input
+                id="warm"
+                type="radio"
+                className="modal__radio-input"
+                name="temperature"
+              />{" "}
+              Warm
+            </label>
+            <label
+              htmlFor="cold"
+              className="modal__label modal__label_type_radio"
+            >
+              <input
+                id="cold"
+                type="radio"
+                className="modal__radio-input"
+                name="temperature"
+              />{" "}
+              Cold
+            </label>
+          </fieldset>
+
           <button
-            class="modal__button modal__button_disabled"
+            className="modal__button modal__button_disabled"
             type="submit"
             id="add_garment_button"
             disabled
           >
-            Save
+            Add Garment
           </button>
         </form>
       </div>
@@ -66,3 +89,20 @@ function ModalWithForm(props) {
 }
 
 export default ModalWithForm;
+
+{
+  /* <div className="modal__form-group">
+<div className="modal__checkbox-item">
+  <input type="checkbox" id="hot" name="option1" />
+  <label>Hot</label>
+</div>
+<div className="modal__checkbox-item">
+  <input type="checkbox" id="warm" name="option2" />
+  <label>Warm</label>
+</div>
+<div className="modal__checkbox-item">
+  <input type="checkbox" id="cold" name="option3" />
+  <label>Cold</label>
+</div>
+</div> */
+}
