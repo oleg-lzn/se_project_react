@@ -3,7 +3,7 @@ import image_logo from "../../../assets/images/Logo.svg";
 import avatar_true from "../../../assets/images/avatar_true.svg";
 import "./Header.css";
 
-function Header(props) {
+function Header({ city }) {
   const [currentDate, setCurrentDate] = useState("");
   const [currentLocation, setCurrentLocation] = useState("Loading location...");
 
@@ -16,10 +16,8 @@ function Header(props) {
   }, []);
 
   useEffect(() => {
-    props.city
-      ? setCurrentLocation(props.city)
-      : setCurrentLocation("Loading location...");
-  }, [props.city]);
+    city ? setCurrentLocation(city) : setCurrentLocation("Loading location...");
+  }, [city]);
 
   // мне кажется, я не правильно использую здесь зависимость и  юз эффект. М
   // Можно напрямую в разметку пробрасывать из пропса город, но как сделать заглушку лоадинг тогда?
