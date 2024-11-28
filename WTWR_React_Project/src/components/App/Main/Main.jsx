@@ -7,7 +7,6 @@ import "./Main.css";
 function Main(props) {
   // console.log(props);
   const [currentTemp, setCurrentTemp] = useState("Loading temperature..");
-  const [modalState, setModalState] = useState("closed");
 
   useEffect(() => {
     setCurrentTemp(props.temp);

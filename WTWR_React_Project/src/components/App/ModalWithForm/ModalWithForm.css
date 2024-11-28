@@ -10,9 +10,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* visibility: hidden;
-  opacity: 0; */
+  visibility: hidden;
+  opacity: 0;
   transition: visibility 0.3s linear 0.3s, opacity 0.3s linear;
+}
+
+.modal_opened {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
 }
 
 .modal__container {
@@ -47,6 +53,10 @@
   padding: 0;
 }
 
+.modal__close.hover {
+  animation: interactive 0.4s ease forwards;
+}
+
 .modal__name {
   margin: 0;
   padding-bottom: 24px;
@@ -56,12 +66,6 @@
   font-weight: 700;
   line-height: 20px;
   text-align: left;
-}
-
-.modal_open {
-  opacity: 1;
-  visibility: visible;
-  transition-delay: 0s;
 }
 
 .modal__form {
@@ -134,19 +138,19 @@
 }
 
 .modal__radio-input:checked {
-  background-color: transparent; /* Убираем заливку */
+  background-color: transparent;
 }
 
 .modal__radio-input:checked::after {
-  content: ""; /* Создаём псевдоэлемент */
-  width: 10px; /* Диаметр внутреннего кружка */
+  content: "";
+  width: 10px;
   height: 10px;
-  background-color: black; /* Цвет внутреннего кружка */
-  border-radius: 50%; /* Круглая форма */
+  background-color: black;
+  border-radius: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Центрируем внутри чекбокса */
+  transform: translate(-50%, -50%);
 }
 
 .modal__radio-buttons {
@@ -173,4 +177,8 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.modal__button.hover {
+  animation: interactive 0.4s ease forwards;
 }

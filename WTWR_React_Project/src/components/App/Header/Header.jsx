@@ -3,7 +3,7 @@ import image_logo from "../../../assets/images/Logo.svg";
 import avatar_true from "../../../assets/images/avatar_true.svg";
 import "./Header.css";
 
-function Header({ city }) {
+function Header({ city, openModalButton, onHover, onHoverEnd }) {
   const [currentDate, setCurrentDate] = useState("");
   const [currentLocation, setCurrentLocation] = useState("Loading location...");
 
@@ -28,7 +28,13 @@ function Header({ city }) {
       <p className="header__date-location">
         {currentDate}, {currentLocation}
       </p>
-      <button className="header__button-add-clothes" type="button">
+      <button
+        className="header__button-add-clothes"
+        type="button"
+        onClick={openModalButton}
+        onMouseEnter={onHover}
+        onMouseLeave={onHoverEnd}
+      >
         + Add Clothes
       </button>
       <div className="header__user">
@@ -40,5 +46,3 @@ function Header({ city }) {
 }
 
 export default Header;
-
-// onclick={handleClick}

@@ -6,12 +6,15 @@ import Main from "./App/Main/Main.jsx";
 import getCityAndWeather from "../utils/weatherAPI.js";
 import { latitude, longitude, APIKey } from "../utils/constants.js";
 import ModalWithForm from "./App/ModalWithForm/ModalWithForm.jsx";
+import ItemModal from "./App/ItemModal/ItemModal.jsx";
 
 function App() {
   const [city, setCity] = useState("Default city");
   const [temp, setTemp] = useState("Default temp");
   const [feeling, setFeeling] = useState("Default feeling");
-  const [state, setModalState] = useState(true);
+  const [activeModalState, setModalState] = useState("");
+
+  // Getting the initial data from the API.
 
   useEffect(() => {
     getCityAndWeather(latitude, longitude, APIKey)
@@ -25,14 +28,58 @@ function App() {
       });
   }, []);
 
-  function handleClose() {
-    setModalState((prevValue) => !prevValue);
+  // Managing Modal States
+
+  function handlePopupState() {
+    setModalState("add_garment");
+  }
+
+  function handleCloseModal() {
+    setModalState("");
+  }
+
+  // Managing Esc Button functionality and outside click functionality (for all of the modals)
+
+  useEffect(() => {
+    const handleEscClose = (e) => {
+      e.key === "Escape" && setModalState("");
+    };
+    activeModalState && document.addEventListener("keydown", handleEscClose);
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+    };
+  }, [activeModalState]);
+
+  useEffect(() => {
+    const handleClickClose = (e) => {
+      e.target.classList.contains("modal") && setModalState("");
+    };
+
+    activeModalState && document.addEventListener("click", handleClickClose);
+    return () => {
+      document.removeEventListener("click", handleClickClose);
+    };
+  }, [activeModalState]);
+
+  // Managing Button Animations
+
+  function handleMouseEnter(e) {
+    e.target.classList.add("hover");
+  }
+
+  function handleMouseLeave(e) {
+    e.target.classList.remove("hover");
   }
 
   return (
     <div className="app">
       <div className="app__wrapper">
-        <Header city={city} />
+        <Header
+          city={city}
+          openModalButton={handlePopupState}
+          onHover={handleMouseEnter}
+          onHoverEnd={handleMouseLeave}
+        />
         <Main temp={temp} feeling={feeling} />
         <Footer />
       </div>
@@ -40,8 +87,10 @@ function App() {
         title="New Garment"
         buttonText="Add Garment"
         name="add_garment"
-        onClose={handleClose}
-        state={state}
+        onClose={handleCloseModal}
+        activeModal={activeModalState}
+        onHover={handleMouseEnter}
+        onHoverEnd={handleMouseLeave}
       >
         <div className="modal__form-group">
           <label htmlFor="name" className="modal__lable">
@@ -106,53 +155,9 @@ function App() {
           </label>
         </fieldset>
       </ModalWithForm>
+      <ItemModal />
     </div>
   );
 }
 
 export default App;
-
-// function handleClick() {
-//   document.getElementById("add_clothes_id").classList.add("modal_open");
-// }
-
-// useEffect(() => {
-//   setModalState(openModal);
-// });
-
-// function closePopup(evt) {
-//   evt.target.classList.remove("popup_open");
-// }
-
-// useEffect(() => {
-//   setModalState();
-// });
-
-// function onClose() {
-//   evt.target.addEventListener("mousedown", (evt) => {
-//     if (
-//       evt.target.classList.contains("popup") ||
-//       evt.target.classList.contains("popup__close")
-//     ) {
-//       setModalState(closePopup);
-//     }
-//   });
-
-// _handleEscClose(evt) {
-//   if (evt.key === "Escape") {
-//     this.close();
-//   }
-
-// open() {
-//   this.popupElement.classList.add("popup_open");
-//   document.addEventListener("keydown", this._handleEscClose);
-// }
-
-// close() {
-//   this.popupElement.classList.remove("popup_open");
-//   document.removeEventListener("keydown", this._handleEscClose);
-// }
-// }
-// }
-
-//   const [open, openModal] = useState("close");
