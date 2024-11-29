@@ -4,17 +4,17 @@ import WeatherCard from "./WeatherCard/WeatherCard";
 import { defaultClothingItems } from "../../../utils/items";
 import "./Main.css";
 
-function Main(props) {
+function Main({ temp, feeling, handleCardClick }) {
   // console.log(props);
   const [currentTemp, setCurrentTemp] = useState("Loading temperature..");
 
   useEffect(() => {
-    setCurrentTemp(props.temp);
-  }, [props.temp]);
+    setCurrentTemp(temp);
+  }, [temp]);
 
   return (
     <main className="main">
-      <WeatherCard temp={props.temp} />
+      <WeatherCard temp={temp} />
       <section className="cards">
         <p className="cards__text">
           Today is {Math.round(currentTemp)}&deg; F / You may want to wear
@@ -23,10 +23,16 @@ function Main(props) {
         <ul className="cards__list">
           {defaultClothingItems
             .filter((item) => {
-              return item.weather === props.feeling;
+              return item.weather === feeling;
             })
             .map((item) => {
-              return <ItemCard key={item._id} item={item} />;
+              return (
+                <ItemCard
+                  key={item._id}
+                  item={item}
+                  onImageClick={handleCardClick}
+                />
+              );
             })}
         </ul>
       </section>

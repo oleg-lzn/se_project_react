@@ -13,6 +13,7 @@ function App() {
   const [temp, setTemp] = useState("Default temp");
   const [feeling, setFeeling] = useState("Default feeling");
   const [activeModalState, setModalState] = useState("");
+  const [selectedCard, setSelectedCard] = useState({});
 
   // Getting the initial data from the API.
 
@@ -32,6 +33,11 @@ function App() {
 
   function handlePopupState() {
     setModalState("add_garment");
+  }
+
+  function handleCardClick(card) {
+    setModalState("image_modal");
+    setSelectedCard(card);
   }
 
   function handleCloseModal() {
@@ -80,7 +86,7 @@ function App() {
           onHover={handleMouseEnter}
           onHoverEnd={handleMouseLeave}
         />
-        <Main temp={temp} feeling={feeling} />
+        <Main temp={temp} feeling={feeling} handleCardClick={handleCardClick} />
         <Footer />
       </div>
       <ModalWithForm
@@ -155,7 +161,15 @@ function App() {
           </label>
         </fieldset>
       </ModalWithForm>
-      <ItemModal />
+      <ItemModal
+        feeling={feeling}
+        onClose={handleCloseModal}
+        activeModal={activeModalState}
+        onHover={handleMouseEnter}
+        onHoverEnd={handleMouseLeave}
+        name="image_modal"
+        card={selectedCard}
+      />
     </div>
   );
 }

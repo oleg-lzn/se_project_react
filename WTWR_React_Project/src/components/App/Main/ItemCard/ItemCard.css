@@ -26,4 +26,5 @@
   border-radius: 19px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   background: rgba(233, 233, 233, 1);
+  cursor: pointer;
 }

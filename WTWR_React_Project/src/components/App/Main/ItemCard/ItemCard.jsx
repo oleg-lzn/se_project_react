@@ -1,14 +1,18 @@
 import "./ItemCard.css";
 
-function ItemCard(props) {
+function ItemCard({ item, onImageClick }) {
+  const handleCardClick = () => {
+    onImageClick(item);
+  };
+
   return (
     <li className="card">
-      <h2 className="card__name">{props.item.name}</h2>
+      <h2 className="card__name">{item.name}</h2>
       <img
         className="card__image"
-        src={props.item.link}
-        alt={props.item.name}
-        // onclick= {handleCardClick}
+        src={item.link}
+        alt={item.name}
+        onClick={handleCardClick}
       />
     </li>
   );

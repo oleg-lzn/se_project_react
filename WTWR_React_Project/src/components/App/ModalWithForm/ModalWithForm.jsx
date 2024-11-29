@@ -13,7 +13,11 @@ function ModalWithForm({
   // if state - then mount it open && depending on the state
 
   return (
-    <div className={`modal ${activeModal ? "modal_opened" : ""}`}>
+    <div
+      className={`modal ${
+        activeModal && activeModal === name ? "modal_opened" : ""
+      }`}
+    >
       <div className="modal__container">
         <h2 className="modal__name">{title}</h2>
         <button
