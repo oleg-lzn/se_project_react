@@ -7,4 +7,5 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  base: "/se_project_react/", // add this field
 });

@@ -27,3 +27,20 @@
   line-height: 24.8px;
   text-align: left;
 }
+
+@media screen and (max-width: 470px) {
+  .cards {
+    padding-top: 32px;
+  }
+
+  .cards__list {
+    display: flex;
+    justify-content: center;
+    column-gap: 15px;
+    row-gap: 16px;
+  }
+
+  .cards__text {
+    padding-bottom: 20px;
+  }
+}

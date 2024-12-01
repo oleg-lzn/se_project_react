@@ -14,15 +14,20 @@ function App() {
   const [feeling, setFeeling] = useState("Default feeling");
   const [activeModalState, setModalState] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
+  const [weather, setWeather] = useState("sunny");
+  const [dayTime, setDayTime] = useState("day");
 
   // Getting the initial data from the API.
 
   useEffect(() => {
     getCityAndWeather(latitude, longitude, APIKey)
       .then((data) => {
+        // console.log(data);
         setCity(data.city);
         setTemp(data.temperature);
         setFeeling(data.feeling);
+        setWeather(data.weather);
+        setDayTime(data.dayTime);
       })
       .catch((err) => {
         console.error("Error fetching weather data:", err);
@@ -86,7 +91,13 @@ function App() {
           onHover={handleMouseEnter}
           onHoverEnd={handleMouseLeave}
         />
-        <Main temp={temp} feeling={feeling} handleCardClick={handleCardClick} />
+        <Main
+          temp={temp}
+          feeling={feeling}
+          handleCardClick={handleCardClick}
+          weather={weather}
+          dayTime={dayTime}
+        />
         <Footer />
       </div>
       <ModalWithForm

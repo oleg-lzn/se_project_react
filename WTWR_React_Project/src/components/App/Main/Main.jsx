@@ -4,7 +4,7 @@ import WeatherCard from "./WeatherCard/WeatherCard";
 import { defaultClothingItems } from "../../../utils/items";
 import "./Main.css";
 
-function Main({ temp, feeling, handleCardClick }) {
+function Main({ temp, feeling, handleCardClick, weather, dayTime }) {
   // console.log(props);
   const [currentTemp, setCurrentTemp] = useState("Loading temperature..");
 
@@ -14,10 +14,10 @@ function Main({ temp, feeling, handleCardClick }) {
 
   return (
     <main className="main">
-      <WeatherCard temp={temp} />
+      <WeatherCard temp={temp} weather={weather} dayTime={dayTime} />
       <section className="cards">
         <p className="cards__text">
-          Today is {Math.round(currentTemp)}&deg; F / You may want to wear
+          Today is {Math.round(currentTemp)}&deg;C / You may want to wear
         </p>
 
         <ul className="cards__list">
