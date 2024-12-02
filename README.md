@@ -54,7 +54,7 @@ Follow these steps to set up the project locally:
    cd se_project_react
    ```
 
-3. ## 📦 Dependencies
+3. **Dependencies**:
 
 The following dependencies are required for this project. They will be installed automatically when you run `npm install`.
 
