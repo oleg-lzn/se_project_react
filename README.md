@@ -31,6 +31,13 @@
 
 ---
 
+## 🌎 Links
+
+- **Live Demo**: [What to Wear](https://oleg-lzn.github.io/se_project_react/)
+- **Frontend Repository**: [se_project_react](https://github.com/oleg-lzn/se_project_react)
+
+---
+
 ## 🚀 Getting Started
 
 Follow these steps to set up the project locally:
@@ -74,13 +81,6 @@ These dependencies are defined in the `package.json` file.
    ```
 
    The app will be available at `http://localhost:3000` 🎉.
-
----
-
-## 🌎 Links
-
-- **Live Demo**: [What to Wear](https://oleg-lzn.github.io/se_project_react/)
-- **Frontend Repository**: [se_project_react](https://github.com/oleg-lzn/se_project_react)
 
 ---
 
