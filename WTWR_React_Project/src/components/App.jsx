@@ -22,7 +22,6 @@ function App() {
   useEffect(() => {
     getCityAndWeather(latitude, longitude, APIKey)
       .then((data) => {
-        // console.log(data);
         setCity(data.city);
         setTemp(data.temperature);
         setFeeling(data.feeling);

@@ -51,7 +51,7 @@
 
 .header__hamburger_button {
   top: 18px;
-  visibility: hidden;
+  display: none;
   width: 44px;
   height: 44px;
   padding: 16px 8px;
@@ -68,17 +68,28 @@
   top: 18px;
 }
 
-.header__container_mobile {
-  visibility: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+.header__close_container {
+  display: none;
+  background-image: url("../../../assets/images/close_mobile_menu.svg");
+  width: 21.21px;
+  height: 21.41px;
+  position: absolute;
+  top: 11px;
+  right: 11.39px;
+  border: none;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 1px;
 }
 
-.header__container_mobile_opened {
-  visibility: visible;
-  border: 1px solid black;
+.header__user-mobile {
+  display: none;
+}
+
+.header__button-add-clothes-mobile {
+  display: none;
 }
 
 @keyframes interactive {
@@ -111,10 +122,60 @@
   }
 
   .header__hamburger_button {
-    visibility: visible;
+    display: block;
   }
 
-  .header__button-add-clothes {
-    position: absolute;
+  .header__close_container {
+    display: block;
+  }
+
+  .header__close_container.hover {
+    animation: interactive 0.4s ease forwards;
+  }
+
+  .header__container_mobile {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: white;
+    overflow: hidden;
+  }
+
+  .header__container_mobile.header__container_mobile_opened {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    top: 18px;
+    left: 16px;
+    right: 16px;
+    border: rgba(0, 0, 0, 0.5);
+    height: 215px;
+    z-index: 5;
+    border-radius: 10px;
+  }
+
+  .header__user-mobile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header__button-add-clothes-mobile {
+    display: block;
+    border: none;
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    scale: 1;
+  }
+
+  .header__button-add-clothes-mobile.hover {
+    animation: interactive 0.4s ease forwards;
   }
 }

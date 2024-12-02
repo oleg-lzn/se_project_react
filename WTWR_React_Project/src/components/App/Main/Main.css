@@ -30,7 +30,7 @@
 
 @media screen and (max-width: 470px) {
   .cards {
-    padding-top: 32px;
+    padding-top: 20px;
   }
 
   .cards__list {
