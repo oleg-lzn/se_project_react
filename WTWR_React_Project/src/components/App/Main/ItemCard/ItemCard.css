@@ -28,7 +28,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 470px) {
+@media screen and (max-width: 700px) {
   .card {
     width: 162px;
   }

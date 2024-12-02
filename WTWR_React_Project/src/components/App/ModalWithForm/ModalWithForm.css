@@ -113,6 +113,7 @@
 }
 
 .modal__label_type_radio {
+  color: gray;
   display: flex;
   font-family: Cabinet Grotesk, sans-serif;
   font-size: 16px;
@@ -137,8 +138,9 @@
   position: relative;
 }
 
-.modal__radio-input:checked {
+.modal__radio-input:checked + span {
   background-color: transparent;
+  color: black;
 }
 
 .modal__radio-input:checked::after {
@@ -173,12 +175,73 @@
   line-height: 20px;
   margin-top: 32px;
   color: rgba(255, 255, 255, 1);
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 1);
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.modal__button.hover {
-  animation: interactive 0.4s ease forwards;
+.modal__button_disabled {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 1);
+  animation: none;
+  pointer-events: none;
 }
+
+.modal__button:not(.modal__button_disabled):hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+@media screen and (max-width: 700px) {
+  .modal {
+    padding: 0;
+  }
+
+  .modal__container {
+    margin: auto;
+    position: fixed;
+    bottom: 0;
+    padding: 32px 16px;
+    border-radius: 12px 12px 0 0;
+  }
+
+  .modal__close {
+    background-image: url("../../../assets/images/close_mobile_menu.svg");
+    width: 21.21px;
+    height: 21.41px;
+    top: 20px;
+    right: 20.79px;
+    border-radius: 1px;
+  }
+
+  .modal__button {
+    width: 100%;
+    padding: 0;
+    margin-top: 30px;
+  }
+}
+
+/* Validation classes */
+
+/* .modal__input_type_error {
+  border-bottom: 1px solid #ff0000;
+}
+
+.modal__error_visible {
+  visibility: visible;
+}
+
+.modal__error {
+  position: absolute;
+  display: block;
+  color: red;
+  font-family: Inter, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.52px;
+  text-align: left;
+  padding: 0;
+  margin-top: 5px;
+  transition: opacity 0.1s;
+} */

@@ -1,4 +1,4 @@
-.modal {
+.modal__picture {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -57,6 +57,7 @@
   outline: none;
   background-size: contain;
   padding: 0;
+  border-radius: 1px;
 }
 
 .modal__close_image.hover {
@@ -85,4 +86,28 @@
   flex-direction: column;
   margin: 20px auto 32px 32px;
   gap: 12px;
+}
+
+@media screen and (max-width: 700px) {
+  .modal__picture {
+    padding: 0 16px;
+  }
+
+  .modal__container_image {
+    max-width: 343px;
+  }
+
+  .modal__footer {
+    margin: 20px auto 20px 20px;
+    gap: 12px;
+  }
+
+  .modal__close_image {
+    background-image: url("../../../assets/images/close_mobile_menu.svg");
+    width: 21.21px;
+    height: 21.41px;
+    top: 12px;
+    right: 12.79px;
+    border-radius: 1px;
+  }
 }

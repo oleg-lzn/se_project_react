@@ -11,11 +11,10 @@ function ItemModal({
 }) {
   return (
     <div
-      className={`modal ${
+      className={`modal__picture ${
         activeModal && activeModal === name ? "modal_opened" : ""
       }`}
     >
-      {/* <div className={`modal modal_opened`}> */}
       <div className="modal__container_image">
         <button
           type="button"

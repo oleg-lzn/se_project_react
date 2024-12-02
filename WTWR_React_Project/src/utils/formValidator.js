@@ -131,3 +131,34 @@
 // };
 
 // enableValidation(config);
+
+//   // Validation
+
+//   function checkInputValidity(inputElement) {
+//     //for checking the input validity
+//     if (!inputElement.validity.valid) {
+//       showInputError(inputElement, inputElement.validationMessage);
+//     } else {
+//       hideInputError(inputElement);
+//     }
+//   }
+
+//   function showInputError(inputElement, errorMessage) {
+//     // if input is not valid - we'd like to take the validation message,
+//     const errorElement = document.getElementById(
+//       "#" + `${inputElement.id}-error`
+//     );
+//     // Add error class to the input and show display error message.
+//     inputElement.classList.add("modal__input_type_error");
+//     errorElement.classList.add("modal__error_visible");
+//     errorElement.textContent = errorMessage;
+//   }
+
+//   function hideInputError(inputElement) {
+//     const errorElement = document.getElementById(
+//       "#" + `${inputElement.id}-error`
+//     );
+//     inputElement.classList.remove("modal__input_type_error");
+//     errorElement.classList.remove("modal__error_visible");
+//     errorElement.textContent = "";
+//   }

@@ -116,7 +116,8 @@ function App() {
               type="text"
               placeholder="Name"
               required
-              id="name"
+              id="name-input"
+              // onInput={checkInputValidity}
             />
           </label>
           <span className="modal__error" id="name-input-error"></span>
@@ -129,7 +130,8 @@ function App() {
               type="url"
               placeholder="Image URL"
               required
-              id="imageUrl"
+              id="url-input"
+              // onInput={checkInputValidity}
             />
           </label>
           <span className="modal__error" id="url-input-error"></span>
@@ -143,7 +145,7 @@ function App() {
               className="modal__radio-input"
               name="temperature"
             />{" "}
-            Hot
+            <span>Hot</span>
           </label>
           <label
             htmlFor="warm"
@@ -155,7 +157,7 @@ function App() {
               className="modal__radio-input"
               name="temperature"
             />{" "}
-            Warm
+            <span>Warm</span>
           </label>
           <label
             htmlFor="cold"
@@ -167,7 +169,7 @@ function App() {
               className="modal__radio-input"
               name="temperature"
             />{" "}
-            Cold
+            <span>Cold</span>
           </label>
         </fieldset>
       </ModalWithForm>

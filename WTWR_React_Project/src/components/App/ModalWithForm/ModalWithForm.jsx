@@ -10,8 +10,6 @@ function ModalWithForm({
   onHover,
   onHoverEnd,
 }) {
-  // if state - then mount it open && depending on the state
-
   return (
     <div
       className={`modal ${
@@ -27,7 +25,7 @@ function ModalWithForm({
           onMouseEnter={onHover}
           onMouseLeave={onHoverEnd}
         ></button>
-        <form className="modal__form" name={name}>
+        <form className="modal__form" name={name} id="modal__form" noValidate>
           {children}
           <button
             className="modal__button modal__button_disabled"
@@ -46,3 +44,34 @@ function ModalWithForm({
 }
 
 export default ModalWithForm;
+
+// Validation - not sure, how to implement the validation here
+
+// function setEventListeners() {
+//   // look for the inputs and the submit button inside the form
+//   const inputList = getInputList();
+//   const submitButton = document.getElementById("add_garment_button");
+//   //loop through the inputs to see if all is valid
+//   inputList.forEach((inputElement) => {
+//     inputElement.addEventListener("input", (evt) => {
+//       //check input validity
+//       checkInputValidity(inputElement);
+//       //disable the button if input is not valid
+//     });
+//   });
+// }
+
+// function getInputList() {
+//   const inputList = Array.from(
+//     document.getElementsByClassName("modal__input")
+//   );
+//   return inputList;
+// }
+
+// function hasInvalidInput() {
+//   return getInputList().some((inputElement) => {
+//     return !inputElement.validity.valid;
+//   });
+// }
+
+// hasInvalidInput();
