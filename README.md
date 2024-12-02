@@ -92,6 +92,6 @@ These dependencies are defined in the `package.json` file.
 
 ## 📝 About This Project
 
-This projectdemonstrates the integration of a React front-end with an Express backend. It showcases features like user authentication, state management, API integration, and responsive UI design. 🌟
+This project demonstrates the integration of a React front-end with an Express backend. It showcases features like user authentication, state management, API integration, and responsive UI design. 🌟
 
 ---
