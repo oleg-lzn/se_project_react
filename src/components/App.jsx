@@ -12,7 +12,7 @@ function App() {
   const [city, setCity] = useState("Default city");
   const [temp, setTemp] = useState("Default temp");
   const [feeling, setFeeling] = useState("Default feeling");
-  const [activeModalState, setModalState] = useState("");
+  const [activeModal, setModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [weather, setWeather] = useState("sunny");
   const [dayTime, setDayTime] = useState("day");
@@ -36,40 +36,39 @@ function App() {
   // Managing Modal States
 
   function handlePopupState() {
-    setModalState("add_garment");
+    setModal("add_garment");
   }
 
   function handleCardClick(card) {
-    setModalState("image_modal");
+    setModal("image_modal");
     setSelectedCard(card);
   }
 
   function handleCloseModal() {
-    setModalState("");
+    setModal("");
   }
 
   // Managing Esc Button functionality and outside click functionality (for all of the modals)
 
   useEffect(() => {
     const handleEscClose = (e) => {
-      e.key === "Escape" && setModalState("");
+      e.key === "Escape" && handleCloseModal();
     };
-    activeModalState && document.addEventListener("keydown", handleEscClose);
+    activeModal && document.addEventListener("keydown", handleEscClose);
     return () => {
       document.removeEventListener("keydown", handleEscClose);
     };
-  }, [activeModalState]);
+  }, [activeModal]);
 
   useEffect(() => {
     const handleClickClose = (e) => {
-      e.target.classList.contains("modal") && setModalState("");
+      e.target.classList.contains("modal") && handleCloseModal();
     };
-
-    activeModalState && document.addEventListener("click", handleClickClose);
+    activeModal && document.addEventListener("click", handleClickClose);
     return () => {
       document.removeEventListener("click", handleClickClose);
     };
-  }, [activeModalState]);
+  }, [activeModal]);
 
   // Managing Button Animations
 
@@ -79,6 +78,35 @@ function App() {
 
   function handleMouseLeave(e) {
     e.target.classList.remove("hover");
+  }
+
+  // Validation
+
+  function showInputError(e, errorMessage) {
+    const form = document.getElementById("modal__form");
+    // if input is not valid - we'd like to take the validation message,
+    const errorElement = form.querySelector(`#${e.target.id}-error`);
+    // Add error class to the input and show display error message.
+    e.target.classList.add("modal__input_type_error");
+    errorElement.classList.add("modal__error_visible");
+    errorElement.textContent = errorMessage;
+  }
+
+  function hideInputError(e) {
+    const form = document.getElementById("modal__form");
+    const errorElement = form.querySelector(`#${e.target.id}-error`);
+    e.target.classList.remove("modal__input_type_error");
+    errorElement.classList.remove("modal__error_visible");
+    errorElement.textContent = "";
+  }
+
+  function checkInputValidity(e) {
+    //for checking the input validity
+    if (!e.target.validity.valid) {
+      showInputError(e, e.target.validationMessage);
+    } else {
+      hideInputError(e);
+    }
   }
 
   return (
@@ -104,37 +132,41 @@ function App() {
         buttonText="Add Garment"
         name="add_garment"
         onClose={handleCloseModal}
-        activeModal={activeModalState}
+        activeModal={activeModal}
         onHover={handleMouseEnter}
         onHoverEnd={handleMouseLeave}
       >
         <div className="modal__form-group">
           <label htmlFor="name" className="modal__lable">
-            Name {""}
+            Name* {""}
             <input
               className="modal__input"
               type="text"
               placeholder="Name"
               required
-              id="name-input"
-              // onInput={checkInputValidity}
+              id="name"
+              onInput={checkInputValidity}
             />
           </label>
-          <span className="modal__error" id="name-input-error"></span>
+          <span className="modal__error" id="name-error">
+            Please enter correct name
+          </span>
         </div>
         <div className="modal__form-group">
           <label htmlFor="imageUrl" className="modal__lable">
-            Image {""}
+            Image* {""}
             <input
               className="modal__input"
               type="url"
               placeholder="Image URL"
               required
-              id="url-input"
-              // onInput={checkInputValidity}
+              id="imageUrl"
+              onInput={checkInputValidity}
             />
           </label>
-          <span className="modal__error" id="url-input-error"></span>
+          <span className="modal__error" id="imageUrl-error">
+            This is not a valid URL
+          </span>
         </div>
         <fieldset className="modal__radio-buttons">
           <legend className="modal__legend">Select the weather type:</legend>
@@ -176,7 +208,7 @@ function App() {
       <ItemModal
         feeling={feeling}
         onClose={handleCloseModal}
-        activeModal={activeModalState}
+        activeModal={activeModal}
         onHover={handleMouseEnter}
         onHoverEnd={handleMouseLeave}
         name="image_modal"

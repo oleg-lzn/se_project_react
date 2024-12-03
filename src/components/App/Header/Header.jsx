@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import image_logo from "../../../assets/images/Logo.svg";
-import avatar_true from "../../../assets/images/avatar_true.svg";
+import imageLogo from "../../../assets/images/Logo.svg";
+import avatarTrue from "../../../assets/images/avatar_true.svg";
 import "./Header.css";
 
 function Header({ city, openModalButton, onHover, onHoverEnd }) {
@@ -29,7 +29,7 @@ function Header({ city, openModalButton, onHover, onHoverEnd }) {
 
   return (
     <header className="header">
-      <img className="header__logo" src={image_logo} alt="App logo" />
+      <img className="header__logo" src={imageLogo} alt="App logo" />
       <p className="header__date-location">
         {currentDate}, {currentLocation}
       </p>
@@ -44,7 +44,7 @@ function Header({ city, openModalButton, onHover, onHoverEnd }) {
       </button>
       <div className="header__user">
         <p className="header__profile-name">Oleg Luzenin</p>
-        <img className="header__avatar" src={avatar_true} alt="Avatar image" />
+        <img className="header__avatar" src={avatarTrue} alt="Avatar image" />
       </div>
       {isMobileMenuOpened && (
         <button
@@ -60,11 +60,7 @@ function Header({ city, openModalButton, onHover, onHoverEnd }) {
       >
         <div className="header__user-mobile">
           <p className="header__profile-name">Oleg Luzenin</p>
-          <img
-            className="header__avatar"
-            src={avatar_true}
-            alt="Avatar image"
-          />
+          <img className="header__avatar" src={avatarTrue} alt="Avatar image" />
         </div>
         <button
           className="header__button-add-clothes-mobile"

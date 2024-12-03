@@ -61,13 +61,6 @@ export default ModalWithForm;
 //   });
 // }
 
-// function getInputList() {
-//   const inputList = Array.from(
-//     document.getElementsByClassName("modal__input")
-//   );
-//   return inputList;
-// }
-
 // function hasInvalidInput() {
 //   return getInputList().some((inputElement) => {
 //     return !inputElement.validity.valid;

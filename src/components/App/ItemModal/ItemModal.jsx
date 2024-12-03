@@ -11,7 +11,7 @@ function ItemModal({
 }) {
   return (
     <div
-      className={`modal__picture ${
+      className={`modal modal_type_picture ${
         activeModal && activeModal === name ? "modal_opened" : ""
       }`}
     >

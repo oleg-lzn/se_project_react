@@ -13,7 +13,7 @@ function getCityAndWeather(latitude, longitude, apiKey) {
         city: data.name,
         temperature: data.main.temp,
         feeling:
-          data.main.temp >= 86 ? "hot" : data.main.temp >= 66 ? "warm" : "cold",
+          data.main.temp >= 30 ? "hot" : data.main.temp >= 18 ? "warm" : "cold",
         weather:
           data.weather[0].id >= 200 && data.weather[0].id <= 232
             ? "storm"
