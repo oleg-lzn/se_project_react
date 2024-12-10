@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import imageLogo from "../../../assets/images/Logo.svg";
 import avatarTrue from "../../../assets/images/avatar_true.svg";
 import "./Header.css";
+import ToggleSwitch from "./ToggleSwitch/ToggleSwitch";
 
 function Header({ city, openModalButton, onHover, onHoverEnd }) {
   const [currentDate, setCurrentDate] = useState("");
@@ -33,6 +34,7 @@ function Header({ city, openModalButton, onHover, onHoverEnd }) {
       <p className="header__date-location">
         {currentDate}, {currentLocation}
       </p>
+      <ToggleSwitch />
       <button
         className="header__button-add-clothes"
         type="button"
@@ -46,6 +48,7 @@ function Header({ city, openModalButton, onHover, onHoverEnd }) {
         <p className="header__profile-name">Oleg Luzenin</p>
         <img className="header__avatar" src={avatarTrue} alt="Avatar image" />
       </div>
+
       {isMobileMenuOpened && (
         <button
           className="header__hamburger_button"

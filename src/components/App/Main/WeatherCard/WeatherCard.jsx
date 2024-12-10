@@ -32,7 +32,7 @@ function WeatherCard({ temp, weather, dayTime }) {
         className="weatherCard__container_image"
       />
       <p className="weatherCard__container__title">
-        {Math.round(currentTemp)}&deg;C
+        {Math.round(currentTemp)}&deg;F
       </p>
     </section>
   );

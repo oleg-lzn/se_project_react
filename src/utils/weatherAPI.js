@@ -1,6 +1,6 @@
 function getCityAndWeather(latitude, longitude, apiKey) {
   return fetch(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`
+    `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`
   )
     .then((res) => {
       if (res.ok) {
@@ -12,8 +12,9 @@ function getCityAndWeather(latitude, longitude, apiKey) {
       return {
         city: data.name,
         temperature: data.main.temp,
+        temperatureC: Math.round(((data.main.temp - 32) * 5) / 9),
         feeling:
-          data.main.temp >= 30 ? "hot" : data.main.temp >= 18 ? "warm" : "cold",
+          data.main.temp >= 86 ? "hot" : data.main.temp >= 60 ? "warm" : "cold",
         weather:
           data.weather[0].id >= 200 && data.weather[0].id <= 232
             ? "storm"

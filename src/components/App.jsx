@@ -7,6 +7,7 @@ import getCityAndWeather from "../utils/weatherAPI.js";
 import { latitude, longitude, APIKey } from "../utils/constants.js";
 import ModalWithForm from "./App/ModalWithForm/ModalWithForm.jsx";
 import ItemModal from "./App/ItemModal/ItemModal.jsx";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext.js";
 
 function App() {
   const [city, setCity] = useState("Default city");
@@ -16,6 +17,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [weather, setWeather] = useState("sunny");
   const [dayTime, setDayTime] = useState("day");
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
 
   // Getting the initial data from the API.
 
@@ -32,6 +34,12 @@ function App() {
         console.error("Error fetching weather data:", err);
       });
   }, []);
+
+  function handleToggleSwitchChange() {
+    currentTemperatureUnit === "F"
+      ? setCurrentTemperatureUnit("C")
+      : setCurrentTemperatureUnit("F");
+  }
 
   // Managing Modal States
 
@@ -110,110 +118,121 @@ function App() {
   }
 
   return (
-    <div className="app">
-      <div className="app__wrapper">
-        <Header
-          city={city}
-          openModalButton={handlePopupState}
-          onHover={handleMouseEnter}
-          onHoverEnd={handleMouseLeave}
-        />
-        <Main
-          temp={temp}
-          feeling={feeling}
-          handleCardClick={handleCardClick}
-          weather={weather}
-          dayTime={dayTime}
-        />
-        <Footer />
-      </div>
-      <ModalWithForm
-        title="New Garment"
-        buttonText="Add Garment"
-        name="add_garment"
-        onClose={handleCloseModal}
-        activeModal={activeModal}
-        onHover={handleMouseEnter}
-        onHoverEnd={handleMouseLeave}
+    <div className="page">
+      <CurrentTemperatureUnitContext.Provider
+        value={{ currentTemperatureUnit, handleToggleSwitchChange }}
       >
-        <div className="modal__form-group">
-          <label htmlFor="name" className="modal__lable">
-            Name* {""}
-            <input
-              className="modal__input"
-              type="text"
-              placeholder="Name"
-              required
-              id="name"
-              onInput={checkInputValidity}
+        <div className="app">
+          <div className="app__wrapper">
+            <Header
+              city={city}
+              openModalButton={handlePopupState}
+              onHover={handleMouseEnter}
+              onHoverEnd={handleMouseLeave}
             />
-          </label>
-          <span className="modal__error" id="name-error">
-            Please enter correct name
-          </span>
-        </div>
-        <div className="modal__form-group">
-          <label htmlFor="imageUrl" className="modal__lable">
-            Image* {""}
-            <input
-              className="modal__input"
-              type="url"
-              placeholder="Image URL"
-              required
-              id="imageUrl"
-              onInput={checkInputValidity}
+            <Main
+              temp={temp}
+              feeling={feeling}
+              handleCardClick={handleCardClick}
+              weather={weather}
+              dayTime={dayTime}
             />
-          </label>
-          <span className="modal__error" id="imageUrl-error">
-            This is not a valid URL
-          </span>
+            <Footer />
+          </div>
+          <ModalWithForm
+            title="New Garment"
+            buttonText="Add Garment"
+            name="add_garment"
+            onClose={handleCloseModal}
+            activeModal={activeModal}
+            onHover={handleMouseEnter}
+            onHoverEnd={handleMouseLeave}
+          >
+            <div className="modal__form-group">
+              <label htmlFor="name" className="modal__lable">
+                Name* {""}
+                <input
+                  className="modal__input"
+                  type="text"
+                  placeholder="Name"
+                  required
+                  id="name"
+                  onInput={checkInputValidity}
+                />
+              </label>
+              <span className="modal__error" id="name-error">
+                Please enter correct name
+              </span>
+            </div>
+            <div className="modal__form-group">
+              <label htmlFor="imageUrl" className="modal__lable">
+                Image* {""}
+                <input
+                  className="modal__input"
+                  type="url"
+                  placeholder="Image URL"
+                  required
+                  id="imageUrl"
+                  onInput={checkInputValidity}
+                />
+              </label>
+              <span className="modal__error" id="imageUrl-error">
+                This is not a valid URL
+              </span>
+            </div>
+            <fieldset className="modal__radio-buttons">
+              <legend className="modal__legend">
+                Select the weather type:
+              </legend>
+              <label
+                htmlFor="hot"
+                className="modal__label modal__label_type_radio"
+              >
+                <input
+                  id="hot"
+                  type="radio"
+                  className="modal__radio-input"
+                  name="temperature"
+                />{" "}
+                <span>Hot</span>
+              </label>
+              <label
+                htmlFor="warm"
+                className="modal__label modal__label_type_radio"
+              >
+                <input
+                  id="warm"
+                  type="radio"
+                  className="modal__radio-input"
+                  name="temperature"
+                />{" "}
+                <span>Warm</span>
+              </label>
+              <label
+                htmlFor="cold"
+                className="modal__label modal__label_type_radio"
+              >
+                <input
+                  id="cold"
+                  type="radio"
+                  className="modal__radio-input"
+                  name="temperature"
+                />{" "}
+                <span>Cold</span>
+              </label>
+            </fieldset>
+          </ModalWithForm>
+          <ItemModal
+            feeling={feeling}
+            onClose={handleCloseModal}
+            activeModal={activeModal}
+            onHover={handleMouseEnter}
+            onHoverEnd={handleMouseLeave}
+            name="image_modal"
+            card={selectedCard}
+          />
         </div>
-        <fieldset className="modal__radio-buttons">
-          <legend className="modal__legend">Select the weather type:</legend>
-          <label htmlFor="hot" className="modal__label modal__label_type_radio">
-            <input
-              id="hot"
-              type="radio"
-              className="modal__radio-input"
-              name="temperature"
-            />{" "}
-            <span>Hot</span>
-          </label>
-          <label
-            htmlFor="warm"
-            className="modal__label modal__label_type_radio"
-          >
-            <input
-              id="warm"
-              type="radio"
-              className="modal__radio-input"
-              name="temperature"
-            />{" "}
-            <span>Warm</span>
-          </label>
-          <label
-            htmlFor="cold"
-            className="modal__label modal__label_type_radio"
-          >
-            <input
-              id="cold"
-              type="radio"
-              className="modal__radio-input"
-              name="temperature"
-            />{" "}
-            <span>Cold</span>
-          </label>
-        </fieldset>
-      </ModalWithForm>
-      <ItemModal
-        feeling={feeling}
-        onClose={handleCloseModal}
-        activeModal={activeModal}
-        onHover={handleMouseEnter}
-        onHoverEnd={handleMouseLeave}
-        name="image_modal"
-        card={selectedCard}
-      />
+      </CurrentTemperatureUnitContext.Provider>
     </div>
   );
 }

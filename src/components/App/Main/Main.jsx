@@ -17,7 +17,7 @@ function Main({ temp, feeling, handleCardClick, weather, dayTime }) {
       <WeatherCard temp={temp} weather={weather} dayTime={dayTime} />
       <section className="cards">
         <p className="cards__text">
-          Today is {Math.round(currentTemp)}&deg;C / You may want to wear
+          Today is {Math.round(currentTemp)}&deg;F / You may want to wear
         </p>
 
         <ul className="cards__list">
