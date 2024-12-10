@@ -1,12 +1,16 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ItemCard from "./ItemCard/ItemCard";
 import WeatherCard from "./WeatherCard/WeatherCard";
 import { defaultClothingItems } from "../../../utils/items";
 import "./Main.css";
+import { CurrentTemperatureUnitContext } from "../../../../contexts/CurrentTemperatureUnitContext";
 
 function Main({ temp, feeling, handleCardClick, weather, dayTime }) {
-  // console.log(props);
   const [currentTemp, setCurrentTemp] = useState("Loading temperature..");
+
+  const { currentTemperatureUnit } = React.useContext(
+    CurrentTemperatureUnitContext
+  );
 
   useEffect(() => {
     setCurrentTemp(temp);
@@ -17,7 +21,8 @@ function Main({ temp, feeling, handleCardClick, weather, dayTime }) {
       <WeatherCard temp={temp} weather={weather} dayTime={dayTime} />
       <section className="cards">
         <p className="cards__text">
-          Today is {Math.round(currentTemp)}&deg;F / You may want to wear
+          Today is {Math.round(currentTemp)}&deg; {currentTemperatureUnit}/ You
+          may want to wear
         </p>
 
         <ul className="cards__list">

@@ -24,8 +24,9 @@ function App() {
   useEffect(() => {
     getCityAndWeather(latitude, longitude, APIKey)
       .then((data) => {
+        console.log(data);
         setCity(data.city);
-        setTemp(data.temperature);
+        setTemp(data.temperature[currentTemperatureUnit]);
         setFeeling(data.feeling);
         setWeather(data.weather);
         setDayTime(data.dayTime);
@@ -40,6 +41,8 @@ function App() {
       ? setCurrentTemperatureUnit("C")
       : setCurrentTemperatureUnit("F");
   }
+
+  console.log(currentTemperatureUnit);
 
   // Managing Modal States
 

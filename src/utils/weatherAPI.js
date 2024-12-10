@@ -1,4 +1,4 @@
-function getCityAndWeather(latitude, longitude, apiKey) {
+function g etCityAndWeather(latitude, longitude, apiKey) {
   return fetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`
   )
@@ -11,8 +11,10 @@ function getCityAndWeather(latitude, longitude, apiKey) {
       const date = Math.floor(Date.now() / 1000);
       return {
         city: data.name,
-        temperature: data.main.temp,
-        temperatureC: Math.round(((data.main.temp - 32) * 5) / 9),
+        temperature: {
+          F: data.main.temp,
+          C: Math.round(((data.main.temp - 32) * 5) / 9),
+        },
         feeling:
           data.main.temp >= 86 ? "hot" : data.main.temp >= 60 ? "warm" : "cold",
         weather:

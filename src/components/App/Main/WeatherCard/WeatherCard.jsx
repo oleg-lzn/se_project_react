@@ -1,11 +1,16 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./WeatherCard.css";
 import cloudy_group from "../../../../assets/images/cloudy_group.svg";
 import { weatherConditions } from "../../../../utils/weather_conditions.js";
+import { CurrentTemperatureUnitContext } from "../../../../../contexts/CurrentTemperatureUnitContext.js";
 
 function WeatherCard({ temp, weather, dayTime }) {
   const [currentTemp, setCurrentTemp] = useState("Loading temperature...");
   const [currentWeatherImage, setCurrentWeatherImage] = useState("sunny");
+
+  const { currentTemperatureUnit } = React.useContext(
+    CurrentTemperatureUnitContext
+  );
 
   useEffect(() => {
     setCurrentTemp(temp);
@@ -32,7 +37,7 @@ function WeatherCard({ temp, weather, dayTime }) {
         className="weatherCard__container_image"
       />
       <p className="weatherCard__container__title">
-        {Math.round(currentTemp)}&deg;F
+        {Math.round(currentTemp)}&deg;{currentTemperatureUnit}
       </p>
     </section>
   );
