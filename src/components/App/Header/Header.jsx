@@ -3,6 +3,7 @@ import imageLogo from "../../../assets/images/Logo.svg";
 import avatarTrue from "../../../assets/images/avatar_true.svg";
 import "./Header.css";
 import ToggleSwitch from "./ToggleSwitch/ToggleSwitch";
+import { Link } from "react-router-dom";
 
 function Header({ city, openModalButton, onHover, onHoverEnd }) {
   const [currentDate, setCurrentDate] = useState("");
@@ -30,7 +31,9 @@ function Header({ city, openModalButton, onHover, onHoverEnd }) {
 
   return (
     <header className="header">
-      <img className="header__logo" src={imageLogo} alt="App logo" />
+      <Link to="se_project_react/">
+        <img className="header__logo" src={imageLogo} alt="App logo" />
+      </Link>
       <p className="header__date-location">
         {currentDate}, {currentLocation}
       </p>

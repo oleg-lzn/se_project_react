@@ -4,6 +4,7 @@ import WeatherCard from "./WeatherCard/WeatherCard";
 import { defaultClothingItems } from "../../../utils/items";
 import "./Main.css";
 import { CurrentTemperatureUnitContext } from "../../../../contexts/CurrentTemperatureUnitContext";
+// import Profile from "./Profile/Profile";
 
 function Main({ temp, feeling, handleCardClick, weather, dayTime }) {
   const [currentTemp, setCurrentTemp] = useState("Loading temperature..");
@@ -21,7 +22,7 @@ function Main({ temp, feeling, handleCardClick, weather, dayTime }) {
       <WeatherCard temp={temp} weather={weather} dayTime={dayTime} />
       <section className="cards">
         <p className="cards__text">
-          Today is {Math.round(currentTemp)}&deg; {currentTemperatureUnit}/ You
+          Today is {Math.round(currentTemp)}&deg;{currentTemperatureUnit}/ You
           may want to wear
         </p>
 

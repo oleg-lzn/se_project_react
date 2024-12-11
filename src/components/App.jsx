@@ -8,6 +8,8 @@ import { latitude, longitude, APIKey } from "../utils/constants.js";
 import ModalWithForm from "./App/ModalWithForm/ModalWithForm.jsx";
 import ItemModal from "./App/ItemModal/ItemModal.jsx";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext.js";
+import { Routes, Route } from "react-router-dom";
+import PageNotFound from "./App/PageNotFound/PageNotFound.jsx";
 
 function App() {
   const [city, setCity] = useState("Default city");
@@ -24,7 +26,6 @@ function App() {
   useEffect(() => {
     getCityAndWeather(latitude, longitude, APIKey)
       .then((data) => {
-        console.log(data);
         setCity(data.city);
         setTemp(data.temperature[currentTemperatureUnit]);
         setFeeling(data.feeling);
@@ -34,15 +35,15 @@ function App() {
       .catch((err) => {
         console.error("Error fetching weather data:", err);
       });
-  }, []);
+  }, [currentTemperatureUnit]);
+
+  // Managing toggle switch for degrees change
 
   function handleToggleSwitchChange() {
     currentTemperatureUnit === "F"
       ? setCurrentTemperatureUnit("C")
       : setCurrentTemperatureUnit("F");
   }
-
-  console.log(currentTemperatureUnit);
 
   // Managing Modal States
 
@@ -133,13 +134,25 @@ function App() {
               onHover={handleMouseEnter}
               onHoverEnd={handleMouseLeave}
             />
-            <Main
-              temp={temp}
-              feeling={feeling}
-              handleCardClick={handleCardClick}
-              weather={weather}
-              dayTime={dayTime}
-            />
+            <Routes>
+              <Route path="*" element={<PageNotFound />} />
+              <Route
+                path="se_project_react/"
+                element={
+                  <Main
+                    temp={temp}
+                    feeling={feeling}
+                    handleCardClick={handleCardClick}
+                    weather={weather}
+                    dayTime={dayTime}
+                  />
+                }
+              />
+              <Route
+                path="se_project_react/profile"
+                element={<p>SOMETHING</p>}
+              />
+            </Routes>
             <Footer />
           </div>
           <ModalWithForm
