@@ -1,0 +1,21 @@
+.sidebar {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  min-width: 185px;
+}
+
+.sidebar__name {
+  margin: 0;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  background: none;
+  padding: 0;
+}
+
+.sidebar__avatar {
+  height: 56px;
+  width: 56px;
+}

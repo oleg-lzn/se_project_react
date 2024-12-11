@@ -47,10 +47,13 @@ function Header({ city, openModalButton, onHover, onHoverEnd }) {
       >
         + Add Clothes
       </button>
-      <div className="header__user">
-        <p className="header__profile-name">Oleg Luzenin</p>
-        <img className="header__avatar" src={avatarTrue} alt="Avatar image" />
-      </div>
+
+      <Link to="se_project_react/profile/" className="header__link">
+        <div className="header__user">
+          <p className="header__profile-name">Oleg Luzenin</p>
+          <img className="header__avatar" src={avatarTrue} alt="Avatar image" />
+        </div>
+      </Link>
 
       {isMobileMenuOpened && (
         <button

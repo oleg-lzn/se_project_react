@@ -31,6 +31,20 @@
   gap: 12px;
 }
 
+.header__link {
+  border: none;
+  font-family: "Cabinet Grotesk", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  scale: 1;
+  text-decoration: none;
+  color: inherit;
+}
+
 .header__date-location {
   margin: 0;
   font-family: "Cabinet Grotesk", sans-serif;

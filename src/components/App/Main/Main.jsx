@@ -4,7 +4,6 @@ import WeatherCard from "./WeatherCard/WeatherCard";
 import { defaultClothingItems } from "../../../utils/items";
 import "./Main.css";
 import { CurrentTemperatureUnitContext } from "../../../../contexts/CurrentTemperatureUnitContext";
-// import Profile from "./Profile/Profile";
 
 function Main({ temp, feeling, handleCardClick, weather, dayTime }) {
   const [currentTemp, setCurrentTemp] = useState("Loading temperature..");

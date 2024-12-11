@@ -10,6 +10,7 @@ import ItemModal from "./App/ItemModal/ItemModal.jsx";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext.js";
 import { Routes, Route } from "react-router-dom";
 import PageNotFound from "./App/PageNotFound/PageNotFound.jsx";
+import Profile from "./App/Main/Profile/Profile.jsx";
 
 function App() {
   const [city, setCity] = useState("Default city");
@@ -148,10 +149,7 @@ function App() {
                   />
                 }
               />
-              <Route
-                path="se_project_react/profile"
-                element={<p>SOMETHING</p>}
-              />
+              <Route path="se_project_react/profile" element={<Profile />} />
             </Routes>
             <Footer />
           </div>
