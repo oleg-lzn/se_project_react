@@ -9,6 +9,7 @@ function ModalWithForm({
   activeModal,
   onHover,
   onHoverEnd,
+  onAddItem,
 }) {
   return (
     <div
@@ -25,13 +26,19 @@ function ModalWithForm({
           onMouseEnter={onHover}
           onMouseLeave={onHoverEnd}
         ></button>
-        <form className="modal__form" name={name} id="modal__form" noValidate>
+        <form
+          className="modal__form"
+          name={name}
+          id="modal__form"
+          noValidate
+          onSubmit={onAddItem}
+        >
           {children}
           <button
-            className="modal__button modal__button_disabled"
+            className="modal__button" //modal__button_disabled
             type="submit"
             id="add_garment_button"
-            disabled
+            // disabled
             onMouseEnter={onHover}
             onMouseLeave={onHoverEnd}
           >
@@ -44,27 +51,3 @@ function ModalWithForm({
 }
 
 export default ModalWithForm;
-
-// Validation - not sure, how to implement the validation here
-
-// function setEventListeners() {
-//   // look for the inputs and the submit button inside the form
-//   const inputList = getInputList();
-//   const submitButton = document.getElementById("add_garment_button");
-//   //loop through the inputs to see if all is valid
-//   inputList.forEach((inputElement) => {
-//     inputElement.addEventListener("input", (evt) => {
-//       //check input validity
-//       checkInputValidity(inputElement);
-//       //disable the button if input is not valid
-//     });
-//   });
-// }
-
-// function hasInvalidInput() {
-//   return getInputList().some((inputElement) => {
-//     return !inputElement.validity.valid;
-//   });
-// }
-
-// hasInvalidInput();

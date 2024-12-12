@@ -5,7 +5,7 @@ import "./Header.css";
 import ToggleSwitch from "./ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom";
 
-function Header({ city, openModalButton, onHover, onHoverEnd }) {
+function Header({ city, openModalButton, onHover, onHoverEnd, openProfile }) {
   const [currentDate, setCurrentDate] = useState("");
   const [currentLocation, setCurrentLocation] = useState("Loading location...");
   const [isMobileMenuOpened, openMobileMenu] = useState("false");
@@ -41,7 +41,7 @@ function Header({ city, openModalButton, onHover, onHoverEnd }) {
       <button
         className="header__button-add-clothes"
         type="button"
-        onClick={openModalButton}
+        onClick={() => openModalButton("add-item_modal")}
         onMouseEnter={onHover}
         onMouseLeave={onHoverEnd}
       >

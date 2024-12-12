@@ -4,16 +4,18 @@ import { useState } from "react";
 import ClothesSection from "./ClothesSection/ClothesSection";
 import "./Profile.css";
 
-function Profile() {
-  const [profileMenuOpened, openProfileMenu] = useState("false");
-
+function Profile({ handleCardClick, name, addItemButton }) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
         <SideBar />
       </section>
       <section className="profile__clothing-items">
-        <ClothesSection />
+        <ClothesSection
+          handleCardClick={handleCardClick}
+          name={name}
+          addItemButton={addItemButton}
+        />
       </section>
     </div>
   );

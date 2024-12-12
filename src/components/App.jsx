@@ -11,6 +11,8 @@ import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperature
 import { Routes, Route } from "react-router-dom";
 import PageNotFound from "./App/PageNotFound/PageNotFound.jsx";
 import Profile from "./App/Main/Profile/Profile.jsx";
+import AddItemModal from "./App/AddItemModal/AddItemModal.jsx";
+import ItemCard from "./App/Main/ItemCard/ItemCard.jsx";
 
 function App() {
   const [city, setCity] = useState("Default city");
@@ -21,6 +23,7 @@ function App() {
   const [weather, setWeather] = useState("sunny");
   const [dayTime, setDayTime] = useState("day");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  // const [profileMenuOpened, setProfileMenuOpen] = useState("false");
 
   // Getting the initial data from the API.
 
@@ -48,17 +51,34 @@ function App() {
 
   // Managing Modal States
 
-  function handlePopupState() {
-    setModal("add_garment");
+  function handlePopupState(name) {
+    setModal(name);
   }
 
-  function handleCardClick(card) {
-    setModal("image_modal");
+  function handleCardClick(card, name) {
+    handlePopupState(name);
     setSelectedCard(card);
   }
 
   function handleCloseModal() {
     setModal("");
+  }
+
+  function onAddItem(values) {
+    console.log(values);
+  }
+
+  // function handleOpenProfile() {
+  //   setProfileMenuOpen((prevValue) => !prevValue);
+  // }
+
+  {
+    /* <p>Нужно снять инпуты с формы
+      и потом взять эти стейты и создать айтем кард с их помощью
+    </p>
+      <ItemCard></ItemCard>
+      <p>Logics to Post the item to the API using post request</p>
+      <p>Append the item to the array of items</p> */
   }
 
   // Managing Esc Button functionality and outside click functionality (for all of the modals)
@@ -149,93 +169,29 @@ function App() {
                   />
                 }
               />
-              <Route path="se_project_react/profile" element={<Profile />} />
+              <Route
+                path="se_project_react/profile"
+                element={
+                  <Profile
+                    handleCardClick={handleCardClick}
+                    name="image_modal"
+                    addItemButton={handlePopupState}
+                  />
+                }
+              />
             </Routes>
             <Footer />
           </div>
-          <ModalWithForm
+          <AddItemModal
             title="New Garment"
-            buttonText="Add Garment"
-            name="add_garment"
+            buttonText="Add New Item"
             onClose={handleCloseModal}
             activeModal={activeModal}
             onHover={handleMouseEnter}
             onHoverEnd={handleMouseLeave}
-          >
-            <div className="modal__form-group">
-              <label htmlFor="name" className="modal__lable">
-                Name* {""}
-                <input
-                  className="modal__input"
-                  type="text"
-                  placeholder="Name"
-                  required
-                  id="name"
-                  onInput={checkInputValidity}
-                />
-              </label>
-              <span className="modal__error" id="name-error">
-                Please enter correct name
-              </span>
-            </div>
-            <div className="modal__form-group">
-              <label htmlFor="imageUrl" className="modal__lable">
-                Image* {""}
-                <input
-                  className="modal__input"
-                  type="url"
-                  placeholder="Image URL"
-                  required
-                  id="imageUrl"
-                  onInput={checkInputValidity}
-                />
-              </label>
-              <span className="modal__error" id="imageUrl-error">
-                This is not a valid URL
-              </span>
-            </div>
-            <fieldset className="modal__radio-buttons">
-              <legend className="modal__legend">
-                Select the weather type:
-              </legend>
-              <label
-                htmlFor="hot"
-                className="modal__label modal__label_type_radio"
-              >
-                <input
-                  id="hot"
-                  type="radio"
-                  className="modal__radio-input"
-                  name="temperature"
-                />{" "}
-                <span>Hot</span>
-              </label>
-              <label
-                htmlFor="warm"
-                className="modal__label modal__label_type_radio"
-              >
-                <input
-                  id="warm"
-                  type="radio"
-                  className="modal__radio-input"
-                  name="temperature"
-                />{" "}
-                <span>Warm</span>
-              </label>
-              <label
-                htmlFor="cold"
-                className="modal__label modal__label_type_radio"
-              >
-                <input
-                  id="cold"
-                  type="radio"
-                  className="modal__radio-input"
-                  name="temperature"
-                />{" "}
-                <span>Cold</span>
-              </label>
-            </fieldset>
-          </ModalWithForm>
+            name="add-item_modal"
+            onAddItem={onAddItem}
+          ></AddItemModal>
           <ItemModal
             feeling={feeling}
             onClose={handleCloseModal}

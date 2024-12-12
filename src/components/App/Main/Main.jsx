@@ -36,6 +36,7 @@ function Main({ temp, feeling, handleCardClick, weather, dayTime }) {
                   key={item._id}
                   item={item}
                   onImageClick={handleCardClick}
+                  name="image_modal"
                 />
               );
             })}

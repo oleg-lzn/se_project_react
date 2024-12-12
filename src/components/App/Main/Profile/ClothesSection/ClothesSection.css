@@ -24,6 +24,12 @@
   border: none;
   padding: 0;
   background: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.clothes-section__button-add-item:hover {
+  color: rgba(0, 0, 0, 1);
 }
 
 .clothes-section__title {

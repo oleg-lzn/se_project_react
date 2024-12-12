@@ -3,12 +3,16 @@ import "./ClothesSection.css";
 import { defaultClothingItems } from "../../../../../utils/items";
 import ItemCard from "../../ItemCard/ItemCard";
 
-function ClothesSection() {
+function ClothesSection({ handleCardClick, name, addItemButton }) {
   return (
     <div className="clothes-section">
       <div className="clothes-section__container">
         <p className="clothes-section__title">Your items</p>
-        <button className="clothes-section__button-add-item" type="button">
+        <button
+          className="clothes-section__button-add-item"
+          type="button"
+          onClick={() => addItemButton("add-item_modal")}
+        >
           + Add new
         </button>
       </div>
@@ -18,8 +22,7 @@ function ClothesSection() {
             <ItemCard
               key={item._id}
               item={item}
-              // pass it as prop
-              // onImageClick={handleCardClick}
+              onImageClick={() => handleCardClick(item, name)}
             />
           );
         })}
