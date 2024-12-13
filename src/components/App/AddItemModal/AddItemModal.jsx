@@ -36,6 +36,10 @@ function AddItemModal({
     onAddItem({ inputName, inputUrl, weather });
   }
 
+  function handleCardDelete(e) {
+    e.preventDefault();
+  }
+
   useEffect(() => {
     activeModal && (setInputName(""), setInputUrl(""));
   }, [activeModal]);

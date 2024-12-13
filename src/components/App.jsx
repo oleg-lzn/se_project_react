@@ -12,7 +12,7 @@ import { Routes, Route } from "react-router-dom";
 import PageNotFound from "./App/PageNotFound/PageNotFound.jsx";
 import Profile from "./App/Main/Profile/Profile.jsx";
 import AddItemModal from "./App/AddItemModal/AddItemModal.jsx";
-import ItemCard from "./App/Main/ItemCard/ItemCard.jsx";
+import ConfirmationModal from "./App/ConfirmationModal/ConfirmationModal.jsx";
 
 function App() {
   const [city, setCity] = useState("Default city");
@@ -23,7 +23,7 @@ function App() {
   const [weather, setWeather] = useState("sunny");
   const [dayTime, setDayTime] = useState("day");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  // const [profileMenuOpened, setProfileMenuOpen] = useState("false");
+  const [clothingItems, setClothingItems] = useState("");
 
   // Getting the initial data from the API.
 
@@ -60,6 +60,18 @@ function App() {
     setSelectedCard(card);
   }
 
+  //this one duplicates the one above, essentially they have the same functionality
+  function openConfirmationModal(card, name) {
+    handlePopupState(name);
+    setSelectedCard(card);
+  }
+
+  function handleCardDelete(card) {
+    // makes the API call
+    setClothingItems(clothingItems.filter((item) => item.id !== card)); // логика удаления карточки, проверить аргумент
+    handleCloseModal();
+  }
+
   function handleCloseModal() {
     setModal("");
   }
@@ -68,17 +80,8 @@ function App() {
     console.log(values);
   }
 
-  // function handleOpenProfile() {
-  //   setProfileMenuOpen((prevValue) => !prevValue);
-  // }
-
-  {
-    /* <p>Нужно снять инпуты с формы
-      и потом взять эти стейты и создать айтем кард с их помощью
-    </p>
-      <ItemCard></ItemCard>
-      <p>Logics to Post the item to the API using post request</p>
-      <p>Append the item to the array of items</p> */
+  function handleAddItemSubmit() {
+    setClothingItems([item, ...clothingItems]); // логика добавления айтема в массив
   }
 
   // Managing Esc Button functionality and outside click functionality (for all of the modals)
@@ -200,6 +203,15 @@ function App() {
             onHoverEnd={handleMouseLeave}
             name="image_modal"
             card={selectedCard}
+            openConfirmationModal={openConfirmationModal}
+          />
+          <ConfirmationModal
+            onClose={handleCloseModal}
+            activeModal={activeModal}
+            name="confirmation_modal"
+            card={selectedCard}
+            onHover={handleMouseEnter}
+            onHoverEnd={handleMouseLeave}
           />
         </div>
       </CurrentTemperatureUnitContext.Provider>

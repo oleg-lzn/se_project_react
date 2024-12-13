@@ -82,9 +82,27 @@
 
 .modal__footer {
   display: flex;
-  flex-direction: column;
-  margin: 20px auto 32px 32px;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px 32px 32px 32px;
   gap: 12px;
+}
+
+.modal__text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal__delete-button {
+  background: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  height: 24px;
+  width: 101px;
+  color: rgba(255, 77, 0, 1);
+  cursor: pointer;
 }
 
 @media screen and (max-width: 700px) {

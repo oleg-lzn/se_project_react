@@ -1,3 +1,4 @@
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import "./ItemModal.css";
 
 function ItemModal({
@@ -8,6 +9,7 @@ function ItemModal({
   onHoverEnd,
   name,
   card,
+  openConfirmationModal,
 }) {
   return (
     <div
@@ -25,8 +27,18 @@ function ItemModal({
         ></button>
         <img className="modal__image" src={card.link} alt={card.name} />
         <div className="modal__footer">
-          <h2 className="modal__name_image">{card.name}</h2>
-          <p className="modal__weather_image">{`Weather: ${feeling}`}</p>
+          <div className="modal__text-container">
+            <h2 className="modal__name_image">{card.name}</h2>
+            <p className="modal__weather_image">{`Weather: ${feeling}`}</p>
+          </div>
+          <button
+            className="modal__delete-button"
+            type="button"
+            onClick={() => openConfirmationModal(card, "confirmation_modal")}
+          >
+            {" "}
+            Delete item
+          </button>
         </div>
       </div>
     </div>
