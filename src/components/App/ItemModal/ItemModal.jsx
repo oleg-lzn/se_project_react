@@ -3,7 +3,6 @@ import "./ItemModal.css";
 
 function ItemModal({
   activeModal,
-  feeling,
   onClose,
   onHover,
   onHoverEnd,

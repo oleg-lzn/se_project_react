@@ -7,6 +7,8 @@ function ConfirmationModal({
   activeModal,
   onHover,
   onHoverEnd,
+  card,
+  onDelete,
 }) {
   return (
     <div
@@ -29,7 +31,14 @@ function ConfirmationModal({
           Are you sure you want to delete this item?
           <br></br> This action is irreversible.
         </h2>
-        <button className="modal__confirm-button" type="submit">
+        <button
+          className="modal__confirm-button"
+          type="submit"
+          onClick={() => {
+            onDelete(card);
+          }}
+        >
+          {" "}
           Yes, delete item
         </button>
         <button

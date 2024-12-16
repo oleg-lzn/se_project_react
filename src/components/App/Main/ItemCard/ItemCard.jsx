@@ -11,7 +11,8 @@ function ItemCard({ item, onImageClick, name }) {
       <img
         className="card__image"
         src={item.imageUrl}
-        alt={item.name}
+        alt={item.name || "Item Image"}
+        onError={() => console.error("Error loading the image", item.imageUrl)}
         onClick={handleCardClick}
       />
     </li>

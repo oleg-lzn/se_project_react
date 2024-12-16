@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ItemCard from "./ItemCard/ItemCard";
 import WeatherCard from "./WeatherCard/WeatherCard";
-import { defaultClothingItems } from "../../../utils/items";
 import "./Main.css";
 import { CurrentTemperatureUnitContext } from "../../../../contexts/CurrentTemperatureUnitContext";
 
@@ -22,8 +21,6 @@ function Main({
   useEffect(() => {
     setCurrentTemp(temp);
   }, [temp]);
-
-  // console.log(clothingItems);
 
   return (
     <main className="main">

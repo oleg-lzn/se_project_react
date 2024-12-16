@@ -13,7 +13,11 @@ import PageNotFound from "./App/PageNotFound/PageNotFound.jsx";
 import Profile from "./App/Main/Profile/Profile.jsx";
 import AddItemModal from "./App/AddItemModal/AddItemModal.jsx";
 import ConfirmationModal from "./App/ConfirmationModal/ConfirmationModal.jsx";
-import getClothingItems from "../utils/api.js";
+import {
+  getClothingItems,
+  addClothingItem,
+  deleteClothingItem,
+} from "../utils/api.js";
 
 function App() {
   const [city, setCity] = useState("Default city");
@@ -32,7 +36,7 @@ function App() {
         setClothingItems(data);
       })
       .catch((err) => {
-        console.error("Error fetching weather data:", err);
+        console.error("Error fetching data:", err);
       });
   }, []);
 
@@ -70,27 +74,48 @@ function App() {
     setSelectedCard(card);
   }
 
+  function handleCloseModal() {
+    setModal("");
+  }
+
   //this one duplicates the one above, essentially they have the same functionality
   function openConfirmationModal(card, name) {
     handlePopupState(name);
     setSelectedCard(card);
   }
 
-  function handleCardDelete(card) {
-    // makes the API call
-    setClothingItems(clothingItems.filter((item) => item.id !== card)); // логика удаления карточки, проверить аргумент
+  // Delete card
+
+  function onDelete(card) {
+    console.log("Данные карточки для удаления", card);
+    deleteClothingItem(card._id);
+    handleDeletingtheItem(card);
     handleCloseModal();
   }
 
-  function handleCloseModal() {
-    setModal("");
+  function handleDeletingtheItem(card) {
+    setClothingItems((prevItems) =>
+      prevItems.filter((item) => item._id !== card._id)
+    );
   }
+
+  // Adding a card
 
   function onAddItem(values) {
     console.log(values);
+    addClothingItem(values)
+      .then((item) => {
+        if (item) {
+          handleAddItemSubmit(item);
+          handleCloseModal();
+        }
+      })
+      .catch((err) => {
+        console.error("Error adding new element", err);
+      });
   }
 
-  function handleAddItemSubmit() {
+  function handleAddItemSubmit(item) {
     setClothingItems([item, ...clothingItems]); // логика добавления айтема в массив
   }
 
@@ -206,10 +231,10 @@ function App() {
             onHoverEnd={handleMouseLeave}
             name="add-item_modal"
             onAddItem={onAddItem}
+            checkInputValidity={checkInputValidity}
           ></AddItemModal>
 
           <ItemModal
-            feeling={feeling}
             onClose={handleCloseModal}
             activeModal={activeModal}
             onHover={handleMouseEnter}
@@ -225,6 +250,7 @@ function App() {
             card={selectedCard}
             onHover={handleMouseEnter}
             onHoverEnd={handleMouseLeave}
+            onDelete={onDelete}
           />
         </div>
       </CurrentTemperatureUnitContext.Provider>

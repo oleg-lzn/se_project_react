@@ -12,6 +12,7 @@ function AddItemModal({
   activeModal,
   onHover,
   onHoverEnd,
+  checkInputValidity,
 }) {
   const [inputName, setInputName] = useState("");
   const [inputUrl, setInputUrl] = useState("");
@@ -38,10 +39,7 @@ function AddItemModal({
     }
   }
 
-  function handleCardDelete(e) {
-    e.preventDefault();
-  }
-
+  // Resetting the form
   useEffect(() => {
     activeModal && (setInputName(""), setInputUrl(""));
   }, [activeModal]);
@@ -66,9 +64,7 @@ function AddItemModal({
             placeholder="Name"
             required
             id="name"
-            // onInput={checkInputValidity}
-            minLength="1"
-            maxLength="30"
+            onInput={checkInputValidity}
             value={inputName}
             onChange={handleInputName}
           />
@@ -86,9 +82,7 @@ function AddItemModal({
             placeholder="Image URL"
             required
             id="imageUrl"
-            // onInput={checkInputValidity}
-            minLength="1"
-            maxLength="50"
+            onInput={checkInputValidity}
             value={inputUrl}
             onChange={handleInputUrl}
           />
@@ -107,6 +101,7 @@ function AddItemModal({
             name="temperature"
             value={weather}
             onChange={handleInputWeather}
+            required
           />{" "}
           <span>Hot</span>
         </label>
@@ -118,6 +113,7 @@ function AddItemModal({
             name="temperature"
             value={weather}
             onChange={handleInputWeather}
+            required
           />{" "}
           <span>Warm</span>
         </label>
@@ -129,6 +125,7 @@ function AddItemModal({
             name="temperature"
             value={weather}
             onChange={handleInputWeather}
+            required
           />{" "}
           <span>Cold</span>
         </label>

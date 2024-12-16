@@ -1,10 +1,9 @@
 import React from "react";
 import SideBar from "./Sidebar/Sidebar";
-import { useState } from "react";
 import ClothesSection from "./ClothesSection/ClothesSection";
 import "./Profile.css";
 
-function Profile({ handleCardClick, name, addItemButton }) {
+function Profile({ handleCardClick, name, addItemButton, clothingItems }) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
@@ -15,6 +14,7 @@ function Profile({ handleCardClick, name, addItemButton }) {
           handleCardClick={handleCardClick}
           name={name}
           addItemButton={addItemButton}
+          clothingItems={clothingItems}
         />
       </section>
     </div>
