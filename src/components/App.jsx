@@ -13,6 +13,7 @@ import PageNotFound from "./App/PageNotFound/PageNotFound.jsx";
 import Profile from "./App/Main/Profile/Profile.jsx";
 import AddItemModal from "./App/AddItemModal/AddItemModal.jsx";
 import ConfirmationModal from "./App/ConfirmationModal/ConfirmationModal.jsx";
+import getClothingItems from "../utils/api.js";
 
 function App() {
   const [city, setCity] = useState("Default city");
@@ -23,10 +24,19 @@ function App() {
   const [weather, setWeather] = useState("sunny");
   const [dayTime, setDayTime] = useState("day");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
-  const [clothingItems, setClothingItems] = useState("");
+  const [clothingItems, setClothingItems] = useState([]);
+
+  useEffect(() => {
+    getClothingItems()
+      .then((data) => {
+        setClothingItems(data);
+      })
+      .catch((err) => {
+        console.error("Error fetching weather data:", err);
+      });
+  }, []);
 
   // Getting the initial data from the API.
-
   useEffect(() => {
     getCityAndWeather(latitude, longitude, APIKey)
       .then((data) => {
@@ -169,6 +179,7 @@ function App() {
                     handleCardClick={handleCardClick}
                     weather={weather}
                     dayTime={dayTime}
+                    clothingItems={clothingItems}
                   />
                 }
               />
@@ -179,6 +190,7 @@ function App() {
                     handleCardClick={handleCardClick}
                     name="image_modal"
                     addItemButton={handlePopupState}
+                    clothingItems={clothingItems}
                   />
                 }
               />
@@ -195,6 +207,7 @@ function App() {
             name="add-item_modal"
             onAddItem={onAddItem}
           ></AddItemModal>
+
           <ItemModal
             feeling={feeling}
             onClose={handleCloseModal}

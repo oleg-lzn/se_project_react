@@ -25,11 +25,11 @@ function ItemModal({
           onMouseEnter={onHover}
           onMouseLeave={onHoverEnd}
         ></button>
-        <img className="modal__image" src={card.link} alt={card.name} />
+        <img className="modal__image" src={card.imageUrl} alt={card.name} />
         <div className="modal__footer">
           <div className="modal__text-container">
             <h2 className="modal__name_image">{card.name}</h2>
-            <p className="modal__weather_image">{`Weather: ${feeling}`}</p>
+            <p className="modal__weather_image">{`Weather: ${card.weather}`}</p>
           </div>
           <button
             className="modal__delete-button"

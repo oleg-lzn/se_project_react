@@ -5,7 +5,14 @@ import { defaultClothingItems } from "../../../utils/items";
 import "./Main.css";
 import { CurrentTemperatureUnitContext } from "../../../../contexts/CurrentTemperatureUnitContext";
 
-function Main({ temp, feeling, handleCardClick, weather, dayTime }) {
+function Main({
+  temp,
+  feeling,
+  handleCardClick,
+  weather,
+  dayTime,
+  clothingItems,
+}) {
   const [currentTemp, setCurrentTemp] = useState("Loading temperature..");
 
   const { currentTemperatureUnit } = React.useContext(
@@ -15,6 +22,8 @@ function Main({ temp, feeling, handleCardClick, weather, dayTime }) {
   useEffect(() => {
     setCurrentTemp(temp);
   }, [temp]);
+
+  // console.log(clothingItems);
 
   return (
     <main className="main">
@@ -26,10 +35,10 @@ function Main({ temp, feeling, handleCardClick, weather, dayTime }) {
         </p>
 
         <ul className="cards__list">
-          {defaultClothingItems
-            .filter((item) => {
-              return item.weather === feeling;
-            })
+          {clothingItems
+            // .filter((item) => {
+            //   return item.weather === feeling;
+            // })
             .map((item) => {
               return (
                 <ItemCard

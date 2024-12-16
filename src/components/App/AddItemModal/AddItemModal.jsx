@@ -33,7 +33,9 @@ function AddItemModal({
 
   function handleSubmit(e) {
     e.preventDefault();
-    onAddItem({ inputName, inputUrl, weather });
+    if (onAddItem) {
+      onAddItem({ inputName, inputUrl, weather });
+    }
   }
 
   function handleCardDelete(e) {
