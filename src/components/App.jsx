@@ -211,12 +211,14 @@ function App() {
               <Route
                 path="se_project_react/profile"
                 element={
+                  // <div className="profile-page">
                   <Profile
                     handleCardClick={handleCardClick}
                     name="image_modal"
                     addItemButton={handlePopupState}
                     clothingItems={clothingItems}
                   />
+                  // </div>
                 }
               />
             </Routes>

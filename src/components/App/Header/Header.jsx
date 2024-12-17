@@ -67,14 +67,20 @@ function Header({ city, openModalButton, onHover, onHoverEnd, openProfile }) {
           !isMobileMenuOpened ? "header__container_mobile_opened" : ""
         }`}
       >
-        <div className="header__user-mobile">
-          <p className="header__profile-name">Oleg Luzenin</p>
-          <img className="header__avatar" src={avatarTrue} alt="Avatar image" />
-        </div>
+        <Link to="se_project_react/profile/" className="header__link">
+          <div className="header__user-mobile" onClick={toggleMobileMenu}>
+            <p className="header__profile-name">Oleg Luzenin</p>
+            <img
+              className="header__avatar"
+              src={avatarTrue}
+              alt="Avatar image"
+            />
+          </div>
+        </Link>
         <button
           className="header__button-add-clothes-mobile"
           type="button"
-          onClick={openModalButton}
+          onClick={() => openModalButton("add-item_modal")}
           onMouseEnter={onHover}
           onMouseLeave={onHoverEnd}
         >
