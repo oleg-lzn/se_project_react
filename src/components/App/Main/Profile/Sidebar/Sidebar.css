@@ -13,6 +13,7 @@
   line-height: 29.76px;
   background: none;
   padding: 0;
+  white-space: nowrap;
 }
 
 .sidebar__avatar {
@@ -21,7 +22,6 @@
 }
 
 .sidebar__text-data {
-  display: none;
   margin: 0;
 }
 
