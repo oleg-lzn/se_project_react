@@ -34,6 +34,8 @@ function ConfirmationModal({
         <button
           className="modal__confirm-button"
           type="submit"
+          onMouseEnter={onHover}
+          onMouseLeave={onHoverEnd}
           onClick={() => {
             onDelete(card);
           }}
@@ -44,6 +46,8 @@ function ConfirmationModal({
         <button
           className="modal__cancel-button"
           type="button"
+          onMouseEnter={onHover}
+          onMouseLeave={onHoverEnd}
           onClick={onClose}
         >
           {" "}

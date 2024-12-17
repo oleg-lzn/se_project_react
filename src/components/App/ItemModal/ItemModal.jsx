@@ -33,6 +33,8 @@ function ItemModal({
           <button
             className="modal__delete-button"
             type="button"
+            onMouseEnter={onHover}
+            onMouseLeave={onHoverEnd}
             onClick={() => openConfirmationModal(card, "confirmation_modal")}
           >
             {" "}

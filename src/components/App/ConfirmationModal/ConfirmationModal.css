@@ -42,6 +42,11 @@
   width: 138px;
   color: rgba(255, 77, 0, 1);
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.modal__confirm-button.hover {
+  color: black;
 }
 
 .modal__cancel-button {
@@ -52,6 +57,10 @@
   width: 61px;
   color: black;
   cursor: pointer;
+}
+
+.modal__cancel-button.hover {
+  animation: interactive 0.4s ease forwards;
 }
 
 .modal__close-confirmation {

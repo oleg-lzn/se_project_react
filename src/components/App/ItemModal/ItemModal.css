@@ -103,6 +103,11 @@
   width: 101px;
   color: rgba(255, 77, 0, 1);
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.modal__delete-button.hover {
+  color: black;
 }
 
 @media screen and (max-width: 700px) {
