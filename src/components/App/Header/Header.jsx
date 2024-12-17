@@ -50,7 +50,7 @@ function Header({ city, openModalButton, onHover, onHoverEnd }) {
         + Add Clothes
       </button>
 
-      <Link to="profile/" className="header__link">
+      <Link to="/profile/" className="header__link">
         <div className="header__user">
           <p className="header__profile-name">Oleg Luzenin</p>
           <img className="header__avatar" src={avatarTrue} alt="Avatar image" />
@@ -69,7 +69,7 @@ function Header({ city, openModalButton, onHover, onHoverEnd }) {
           !isMobileMenuOpened ? "header__container_mobile_opened" : ""
         }`}
       >
-        <Link to="se_project_react/profile/" className="header__link">
+        <Link to="/profile/" className="header__link">
           <div className="header__user-mobile" onClick={toggleMobileMenu}>
             <p className="header__profile-name">Oleg Luzenin</p>
             <img
