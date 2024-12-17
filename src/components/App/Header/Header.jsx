@@ -31,7 +31,7 @@ function Header({ city, openModalButton, onHover, onHoverEnd }) {
 
   return (
     <header className="header">
-      <Link to="se_project_react/">
+      <Link to="/">
         <img className="header__logo" src={imageLogo} alt="App logo" />
       </Link>
       <p className="header__date-location">
@@ -50,7 +50,7 @@ function Header({ city, openModalButton, onHover, onHoverEnd }) {
         + Add Clothes
       </button>
 
-      <Link to="se_project_react/profile/" className="header__link">
+      <Link to="profile/" className="header__link">
         <div className="header__user">
           <p className="header__profile-name">Oleg Luzenin</p>
           <img className="header__avatar" src={avatarTrue} alt="Avatar image" />
