@@ -34,9 +34,6 @@ function getCityAndWeather(latitude, longitude, apiKey) {
         dayTime:
           date >= data.sys.sunrise && date < data.sys.sunset ? "day" : "night",
       };
-    })
-    .catch((err) => {
-      console.error("Error fetching weather data:", err);
     });
 }
 

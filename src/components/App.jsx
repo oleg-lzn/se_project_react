@@ -45,10 +45,20 @@ function App() {
     getCityAndWeather(latitude, longitude, APIKey)
       .then((data) => {
         setCity(data.city);
-        setTemp(data.temperature[currentTemperatureUnit]);
         setFeeling(data.feeling);
         setWeather(data.weather);
         setDayTime(data.dayTime);
+      })
+      .catch((err) => {
+        console.error("Error fetching weather data:", err);
+      });
+  }, []);
+
+  // Made a separate useEffect, not to fetch other data, because of change in current temp unit
+  useEffect(() => {
+    getCityAndWeather(latitude, longitude, APIKey)
+      .then((data) => {
+        setTemp(data.temperature[currentTemperatureUnit]);
       })
       .catch((err) => {
         console.error("Error fetching weather data:", err);
@@ -65,12 +75,10 @@ function App() {
 
   // Managing Modal States
 
-  function handlePopupState(name) {
-    setModal(name);
-  }
+  // deleted handlePopupstate, changed to setter function everywhere in the code
 
   function handleCardClick(card, name) {
-    handlePopupState(name);
+    setModal(name);
     setSelectedCard(card);
   }
 
@@ -80,17 +88,26 @@ function App() {
 
   //this one duplicates the one above, essentially they have the same functionality
   function openConfirmationModal(card, name) {
-    handlePopupState(name);
+    setModal(name);
     setSelectedCard(card);
   }
 
   // Delete card
 
+  // Comment to the reviewer. Now I export 3 api functions from the api.js file.
+  // Do you mean, that I need to create a React class component there or a js class there
+  // , export it here, instantiate and then use with the function like api.deleteClothingItem ?
+
   function onDelete(card) {
     console.log("Данные карточки для удаления", card);
-    deleteClothingItem(card._id);
-    handleDeletingtheItem(card);
-    handleCloseModal();
+    deleteClothingItem(card._id)
+      .then(() => {
+        handleDeletingtheItem(card);
+        handleCloseModal();
+      })
+      .catch((err) => {
+        console.error("Error deleting the card", err);
+      });
   }
 
   function handleDeletingtheItem(card) {
@@ -153,33 +170,6 @@ function App() {
 
   // Validation
 
-  function showInputError(e, errorMessage) {
-    const form = document.getElementById("modal__form");
-    // if input is not valid - we'd like to take the validation message,
-    const errorElement = form.querySelector(`#${e.target.id}-error`);
-    // Add error class to the input and show display error message.
-    e.target.classList.add("modal__input_type_error");
-    errorElement.classList.add("modal__error_visible");
-    errorElement.textContent = errorMessage;
-  }
-
-  function hideInputError(e) {
-    const form = document.getElementById("modal__form");
-    const errorElement = form.querySelector(`#${e.target.id}-error`);
-    e.target.classList.remove("modal__input_type_error");
-    errorElement.classList.remove("modal__error_visible");
-    errorElement.textContent = "";
-  }
-
-  function checkInputValidity(e) {
-    //for checking the input validity
-    if (!e.target.validity.valid) {
-      showInputError(e, e.target.validationMessage);
-    } else {
-      hideInputError(e);
-    }
-  }
-
   return (
     <div className="page">
       <CurrentTemperatureUnitContext.Provider
@@ -189,7 +179,7 @@ function App() {
           <div className="app__wrapper">
             <Header
               city={city}
-              openModalButton={handlePopupState}
+              openModalButton={setModal}
               onHover={handleMouseEnter}
               onHoverEnd={handleMouseLeave}
             />
@@ -214,7 +204,7 @@ function App() {
                   <Profile
                     handleCardClick={handleCardClick}
                     name="image_modal"
-                    addItemButton={handlePopupState}
+                    addItemButton={setModal}
                     clothingItems={clothingItems}
                   />
                 }
@@ -231,7 +221,6 @@ function App() {
             onHoverEnd={handleMouseLeave}
             name="add-item_modal"
             onAddItem={onAddItem}
-            checkInputValidity={checkInputValidity}
           ></AddItemModal>
 
           <ItemModal

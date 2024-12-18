@@ -33,9 +33,9 @@ function Main({
 
         <ul className="cards__list">
           {clothingItems
-            // .filter((item) => {
-            //   return item.weather === feeling;
-            // })
+            .filter((item) => {
+              return item.weather === feeling;
+            })
             .map((item) => {
               return (
                 <ItemCard

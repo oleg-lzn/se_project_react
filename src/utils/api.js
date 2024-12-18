@@ -1,7 +1,7 @@
 const baseUrl = "http://localhost:3001";
 
 function _request(url, options) {
-  return fetch(url, options);
+  return fetch(url, options).then((res) => checkApiResponse(res));
 }
 
 function checkApiResponse(res) {
@@ -10,20 +10,20 @@ function checkApiResponse(res) {
   } else return Promise.reject(`Error: ${res.status}`);
 }
 
-function getClothingItems() {
-  return _request(`${baseUrl}/items`, {}).then(checkApiResponse);
+export function getClothingItems() {
+  return _request(`${baseUrl}/items`, {});
 }
 
-function deleteClothingItem(id) {
+export function deleteClothingItem(id) {
   return _request(`${baseUrl}/items/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
-  }).then(checkApiResponse);
+  });
 }
 
-function addClothingItem(item) {
+export function addClothingItem(item) {
   return _request(`${baseUrl}/items`, {
     method: "POST",
     headers: {
@@ -34,12 +34,8 @@ function addClothingItem(item) {
       weather: item.weather,
       imageUrl: item.inputUrl,
     }),
-  })
-    .then(checkApiResponse)
-    .then((newItem) => {
-      console.log("Server Response", newItem);
-      return newItem;
-    });
+  }).then((newItem) => {
+    console.log("Server Response", newItem);
+    return newItem;
+  });
 }
-
-export { getClothingItems, addClothingItem, deleteClothingItem };
