@@ -107,6 +107,12 @@
       "weather": "warm",
       "imageUrl": "https://img.freepik.com/free-vector/hand-drawn-winter-clothes-essentials-collection_23-2149145764.jpg?t=st=1734376877~exp=1734380477~hmac=f2f0987f8ee184bb5f453d66cb90d4aebd2636c182adbd7a489bb499f781aab8&w=826",
       "_id": 17
+    },
+    {
+      "name": "asda",
+      "weather": "cold",
+      "imageUrl": "http://localhost:3000/src/assets/images/not_found_cat.jpeg",
+      "_id": 18
     }
   ]
 }

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import React from "react";
+import "./Modal.css";
 
 function Modal({ name, onClose, children, activeModal, onHover, onHoverEnd }) {
   useEffect(() => {

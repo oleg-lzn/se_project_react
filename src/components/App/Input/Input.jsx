@@ -1,4 +1,6 @@
 import React from "react";
+import "./Input.css";
+import useFormAndValidation from "../../../../hooks/useFormAndValidation";
 
 function Input({
   inputName,
@@ -8,6 +10,9 @@ function Input({
   handleInputWeather,
   weather,
 }) {
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
+
   return (
     <>
       <div className="modal__form-group">
@@ -23,9 +28,6 @@ function Input({
             onChange={handleInputName}
           />
         </label>
-        <span className="modal__error" id="name-error">
-          Please enter correct name
-        </span>
       </div>
       <div className="modal__form-group">
         <label htmlFor="imageUrl" className="modal__lable">
@@ -40,9 +42,6 @@ function Input({
             onChange={handleInputUrl}
           />
         </label>
-        <span className="modal__error" id="imageUrl-error">
-          This is not a valid URL
-        </span>
       </div>
       <fieldset className="modal__radio-buttons">
         <legend className="modal__legend">Select the weather type:</legend>

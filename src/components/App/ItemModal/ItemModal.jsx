@@ -18,14 +18,6 @@ function ItemModal({
       onHover={onHover}
       onHoverEnd={onHoverEnd}
     >
-      {/* <div className="modal__container_image"> */}
-      {/* <button
-        type="button"
-        className="modal__close_image"
-        onClick={onClose}
-        onMouseEnter={onHover}
-        onMouseLeave={onHoverEnd}
-      ></button> */}
       <img className="modal__image" src={card.imageUrl} alt={card.name} />
       <div className="modal__footer">
         <div className="modal__text-container">
@@ -43,19 +35,8 @@ function ItemModal({
           Delete item
         </button>
       </div>
-      {/* </div> */}
     </Modal>
   );
 }
 
 export default ItemModal;
-
-{
-  /* <div
-className={`modal modal_type_picture ${
-  activeModal && activeModal === name ? "modal_opened" : ""
-}`}
->
-
-</div> */
-}

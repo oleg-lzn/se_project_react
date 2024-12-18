@@ -226,6 +226,13 @@ function App() {
 
 export default App;
 
+// I have a problem - on mobile -  item modal with this container is messed up. It uses the same container as the form,
+// but the form is sticked to the bottom and the modal should be opened and centered
+// It used different container and now I don't know how to fix this.
+
+// I did not understand at all the custom hook for form validation.. I understood, that you use 3 states for values, errors and 1 for the validity state.
+// How do you use setter, this syntax {...values, [name]: value } - I don't know it. Neither I know how to use useCallback method, not learned yet.
+
 // I think somewhere in the Modal => Modal with Form (Form + Input) => Add Item Modal  the logics is broken.
 // The highest component should be modal, then inside it should be modal with form,
 // then inside modal with form should be a form with input component inside.

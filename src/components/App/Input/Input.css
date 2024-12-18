@@ -1,0 +1,119 @@
+.modal__input {
+  padding: 0;
+  margin: 0;
+  height: 28px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  font-family: Cabinet Grotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: left;
+  color: rgba(0, 0, 0, 1);
+  outline: none;
+  cursor: text;
+}
+
+.modal__input_inactive {
+  opacity: 0.2;
+}
+
+.modal__legend {
+  font-family: Cabinet Grotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: left;
+  margin-bottom: 12px;
+}
+
+.modal__form-group {
+  margin-bottom: 24px;
+}
+
+.modal__lable {
+  font-family: Cabinet Grotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  padding-bottom: 3px;
+}
+
+.modal__label_type_radio {
+  color: gray;
+  display: flex;
+  font-family: Cabinet Grotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: left;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal__radio-input {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #000;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.modal__radio-input:checked + span {
+  background-color: transparent;
+  color: black;
+}
+
+.modal__radio-input:checked::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal__radio-buttons {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* Validation classes */
+
+.modal__input_type_error {
+  border-bottom: 1px solid rgba(255, 77, 0, 1);
+  color: rgba(255, 77, 0, 1);
+}
+
+.modal__error_visible {
+  visibility: visible;
+}
+
+.modal__error {
+  position: absolute;
+  display: block;
+  color: rgba(255, 77, 0, 1);
+  font-family: Cabinet Grotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: left;
+  padding: 0;
+  margin-top: 5px;
+  transition: opacity 0.1s;
+}

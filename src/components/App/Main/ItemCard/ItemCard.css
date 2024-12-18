@@ -40,4 +40,9 @@
     top: 7px;
     gap: 8px;
   }
+
+  .card__image {
+    height: 162px;
+    width: 162px;
+  }
 }
