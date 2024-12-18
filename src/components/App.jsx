@@ -136,28 +136,6 @@ function App() {
     setClothingItems([item, ...clothingItems]); // логика добавления айтема в массив
   }
 
-  // Managing Esc Button functionality and outside click functionality (for all of the modals)
-
-  useEffect(() => {
-    const handleEscClose = (e) => {
-      e.key === "Escape" && handleCloseModal();
-    };
-    activeModal && document.addEventListener("keydown", handleEscClose);
-    return () => {
-      document.removeEventListener("keydown", handleEscClose);
-    };
-  }, [activeModal]);
-
-  useEffect(() => {
-    const handleClickClose = (e) => {
-      e.target.classList.contains("modal") && handleCloseModal();
-    };
-    activeModal && document.addEventListener("click", handleClickClose);
-    return () => {
-      document.removeEventListener("click", handleClickClose);
-    };
-  }, [activeModal]);
-
   // Managing Button Animations
 
   function handleMouseEnter(e) {
@@ -222,7 +200,6 @@ function App() {
             name="add-item_modal"
             onAddItem={onAddItem}
           ></AddItemModal>
-
           <ItemModal
             onClose={handleCloseModal}
             activeModal={activeModal}
@@ -248,3 +225,9 @@ function App() {
 }
 
 export default App;
+
+// I think somewhere in the Modal => Modal with Form (Form + Input) => Add Item Modal  the logics is broken.
+// The highest component should be modal, then inside it should be modal with form,
+// then inside modal with form should be a form with input component inside.
+// In this case by using {children} the logical chain is broken in the AddItemModal component,
+// because children is actually an Input component there.
