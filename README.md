@@ -31,13 +31,6 @@
 
 ---
 
-## 🌎 Links
-
-- **Live Demo**: [What to Wear](https://oleg-lzn.github.io/se_project_react/)
-- **Frontend Repository**: [se_project_react](https://github.com/oleg-lzn/se_project_react)
-
----
-
 ## 🚀 Getting Started
 
 Follow these steps to set up the project locally:
@@ -77,6 +70,8 @@ These dependencies are defined in the `package.json` file.
 4. **Start the development server**:
 
    ```bash
+   sudo npm install -g json-server@^0
+   json-server --watch db.json --id _id --port 3001
    npm run dev
    ```
 
