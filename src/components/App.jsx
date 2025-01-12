@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import "./App.css";
 import Header from "../components/App/Header/Header.jsx";
 import Footer from "./App/Footer/Footer.jsx";
@@ -10,7 +10,6 @@ import ItemModal from "./App/ItemModal/ItemModal.jsx";
 import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext.js";
 import { Routes, Route } from "react-router-dom";
 import PageNotFound from "./App/PageNotFound/PageNotFound.jsx";
-import Profile from "./App/Main/Profile/Profile.jsx";
 import AddItemModal from "./App/AddItemModal/AddItemModal.jsx";
 import ConfirmationModal from "./App/ConfirmationModal/ConfirmationModal.jsx";
 import {
@@ -18,6 +17,10 @@ import {
   addClothingItem,
   deleteClothingItem,
 } from "../utils/api.js";
+
+const Profile = React.lazy(() =>
+  import("../components/App/Main/Profile/Profile.jsx")
+);
 
 function App() {
   const [city, setCity] = useState("Default city");
@@ -94,10 +97,6 @@ function App() {
 
   // Delete card
 
-  // Comment to the reviewer. Now I export 3 api functions from the api.js file.
-  // Do you mean, that I need to create a React class component there or a js class there
-  // , export it here, instantiate and then use with the function like api.deleteClothingItem ?
-
   function onDelete(card) {
     console.log("Данные карточки для удаления", card);
     deleteClothingItem(card._id)
@@ -161,33 +160,35 @@ function App() {
               onHover={handleMouseEnter}
               onHoverEnd={handleMouseLeave}
             />
-            <Routes>
-              <Route path="*" element={<PageNotFound />} />
-              <Route
-                path="/"
-                element={
-                  <Main
-                    temp={temp}
-                    feeling={feeling}
-                    handleCardClick={handleCardClick}
-                    weather={weather}
-                    dayTime={dayTime}
-                    clothingItems={clothingItems}
-                  />
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <Profile
-                    handleCardClick={handleCardClick}
-                    name="image_modal"
-                    addItemButton={setModal}
-                    clothingItems={clothingItems}
-                  />
-                }
-              />
-            </Routes>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Routes>
+                <Route path="*" element={<PageNotFound />} />
+                <Route
+                  path="/"
+                  element={
+                    <Main
+                      temp={temp}
+                      feeling={feeling}
+                      handleCardClick={handleCardClick}
+                      weather={weather}
+                      dayTime={dayTime}
+                      clothingItems={clothingItems}
+                    />
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <Profile
+                      handleCardClick={handleCardClick}
+                      name="image_modal"
+                      addItemButton={setModal}
+                      clothingItems={clothingItems}
+                    />
+                  }
+                />
+              </Routes>
+            </Suspense>
             <Footer />
           </div>
           <AddItemModal
@@ -225,16 +226,3 @@ function App() {
 }
 
 export default App;
-
-// I have a problem - on mobile -  item modal with this container is messed up. It uses the same container as the form,
-// but the form is sticked to the bottom and the modal should be opened and centered
-// It used different container and now I don't know how to fix this.
-
-// I did not understand at all the custom hook for form validation.. I understood, that you use 3 states for values, errors and 1 for the validity state.
-// How do you use setter, this syntax {...values, [name]: value } - I don't know it. Neither I know how to use useCallback method, not learned yet.
-
-// I think somewhere in the Modal => Modal with Form (Form + Input) => Add Item Modal  the logics is broken.
-// The highest component should be modal, then inside it should be modal with form,
-// then inside modal with form should be a form with input component inside.
-// In this case by using {children} the logical chain is broken in the AddItemModal component,
-// because children is actually an Input component there.
