@@ -6,6 +6,18 @@
 
 ---
 
+## Screenshots
+
+### Homepage
+
+![Home Page](https://drive.google.com/file/d/1BKk87rfpVBnVsmuTNS6fMdCUMCmo8bLS/view?usp=drive_link)
+
+### Responsive Design
+
+![Responsive Design Screenshot](https://drive.google.com/file/d/1FkJg1XMTVpcG9EjVpK1_4ZJpgRu_2bAo/view?usp=drive_link)
+
+
+
 ## ✨ Features
 
 - 🔑 **User Authentication:** Users can register and log in to get personalized recommendations.
