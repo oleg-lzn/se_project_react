@@ -1,0 +1,62 @@
+.clothes-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding-top: 16px;
+}
+
+.clothes-section__container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-family: Cabinet Grotesk;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24.8px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
+
+.clothes-section__button-add-item {
+  color: rgba(0, 0, 0, 0.6);
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.clothes-section__button-add-item:hover {
+  color: rgba(0, 0, 0, 1);
+}
+
+.clothes-section__title {
+  margin: 0;
+}
+
+.clothes-section_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+@media screen and (max-width: 700px) {
+  .clothes-section {
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    padding-top: 20px;
+  }
+
+  .clothes-section_list {
+    justify-content: center;
+  }
+
+  .clothes-section__container {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

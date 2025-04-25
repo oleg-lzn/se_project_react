@@ -1,0 +1,95 @@
+.modal__name_image {
+  font-family: Cabinet Grotesk, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+  margin: 0;
+}
+
+.modal__weather_image {
+  margin: 0;
+}
+
+.modal__image {
+  position: relative;
+  top: -28px;
+  left: -28px;
+  object-fit: cover;
+  height: 496px;
+  width: 496px;
+}
+
+.modal__footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.modal__text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: Cabinet Grotesk, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+  margin: top;
+}
+
+.modal__delete-button {
+  background: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  height: 24px;
+  width: 101px;
+  color: rgba(255, 77, 0, 1);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-family: Cabinet Grotesk, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+  margin: 0;
+}
+
+.modal__delete-button.hover {
+  color: black;
+}
+
+@media screen and (max-width: 700px) {
+  .modal_type_picture {
+    padding: 0 16px;
+  }
+
+  /* .modal__container_image {
+    max-width: 343px;
+  } */
+
+  .modal__footer {
+    margin: 20px;
+    gap: 12px;
+  }
+
+  /* .modal__image {
+    position: relative;
+    top: -33px;
+    left: -16px;
+    object-fit: cover;
+    height: 400px;
+    width: 420px;
+  } */
+
+  .modal__close_image {
+    background-image: url("../../../assets/images/close_mobile_menu.svg");
+    width: 21.21px;
+    height: 21.41px;
+    top: 12px;
+    right: 12.79px;
+    border-radius: 1px;
+  }
+}
