@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Suspense } from "react";
-import { Navigate, useLocation, navigate, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./App.css";
 import Header from "../components/App/Header/Header.jsx";
 import Footer from "./App/Footer/Footer.jsx";
