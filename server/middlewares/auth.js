@@ -25,6 +25,3 @@ module.exports = (req, res, next) => {
   req.user = payload;
   return next();
 };
-
-// I still have several errors on Postman about authorization, adding an item, updating user data and adding a user.
-// Other mistakes are status code mistakes.

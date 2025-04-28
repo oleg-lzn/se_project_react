@@ -2,18 +2,18 @@ import { useCallback, useState } from "react";
 
 export function useFormAndValidation() {
   const [values, setValues] = useState({
-    name_input: "",
-    url_input: "",
-    radio_input: "",
-    email_input: "",
-    password_input: "",
+    name: "",
+    avatar: "",
+    radio: "",
+    email: "",
+    password: "",
   });
   const [errors, setErrors] = useState({
-    name_input: "",
-    url_input: "",
-    radio_input: "",
-    email_input: "",
-    password_input: "",
+    name: "",
+    avatar: "",
+    radio: "",
+    email: "",
+    password: "",
   });
   const [isValid, setIsValid] = useState(true);
 

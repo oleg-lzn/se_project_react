@@ -17,8 +17,8 @@
   scale: 1;
 }
 
-,
-header__authorization-button {
+.header__button-add-clothes:focus {
+  outline: none;
 }
 
 .header__button-add-clothes.hover {

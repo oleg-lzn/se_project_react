@@ -1,5 +1,7 @@
 import "./ItemModal.css";
 import Modal from "../Modal/Modal";
+import { CurrentUserContext } from "../../../../contexts/CurrentUserContext";
+import { useContext } from "react";
 
 function ItemModal({
   activeModal,
@@ -10,6 +12,9 @@ function ItemModal({
   card,
   openConfirmationModal,
 }) {
+  const currentUser = useContext(CurrentUserContext);
+  const isOwn = card.owner === currentUser?._id;
+
   return (
     <Modal
       name={name}
@@ -24,16 +29,18 @@ function ItemModal({
           <h2 className="modal__name_image">{card.name}</h2>
           <p className="modal__weather_image">{`Weather: ${card.weather}`}</p>
         </div>
-        <button
-          className="modal__delete-button"
-          type="button"
-          onMouseEnter={onHover}
-          onMouseLeave={onHoverEnd}
-          onClick={() => openConfirmationModal(card, "confirmation_modal")}
-        >
-          {" "}
-          Delete item
-        </button>
+        {isOwn && (
+          <button
+            className="modal__delete-button"
+            type="button"
+            onMouseEnter={onHover}
+            onMouseLeave={onHoverEnd}
+            onClick={() => openConfirmationModal(card, "confirmation_modal")}
+          >
+            {" "}
+            Delete item
+          </button>
+        )}
       </div>
     </Modal>
   );

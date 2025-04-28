@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ItemCard from "./ItemCard/ItemCard";
 import WeatherCard from "./WeatherCard/WeatherCard";
 import "./Main.css";
@@ -14,9 +14,7 @@ function Main({
 }) {
   const [currentTemp, setCurrentTemp] = useState("Loading temperature..");
 
-  const { currentTemperatureUnit } = React.useContext(
-    CurrentTemperatureUnitContext
-  );
+  const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
   useEffect(() => {
     setCurrentTemp(temp);
@@ -33,19 +31,15 @@ function Main({
 
         <ul className="cards__list">
           {clothingItems
-            .filter((item) => {
-              return item.weather === feeling;
-            })
-            .map((item) => {
-              return (
-                <ItemCard
-                  key={item._id}
-                  item={item}
-                  onImageClick={handleCardClick}
-                  name="image_modal"
-                />
-              );
-            })}
+            .filter((item) => item.weather === feeling)
+            .map((item) => (
+              <ItemCard
+                key={item._id}
+                item={item}
+                onImageClick={handleCardClick}
+                name="image_modal"
+              />
+            ))}
         </ul>
       </section>
     </main>

@@ -21,10 +21,9 @@ function Form({
       <button
         className="modal__button"
         type="submit"
-        // id="add_garment_button"
         onMouseEnter={onHover}
         onMouseLeave={onHoverEnd}
-        disabled={!isValid}
+        // disabled={!isValid}
       >
         {buttonText}
       </button>

@@ -1,31 +1,23 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
+import { latitude, longitude, APIKey } from "../utils/constants.js";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext.js";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import Header from "./App/Header/Header.jsx";
 import Footer from "./App/Footer/Footer.jsx";
 import Main from "./App/Main/Main.jsx";
-import getCityAndWeather from "../utils/weatherAPI.js";
-import { latitude, longitude, APIKey } from "../utils/constants.js";
-import ItemModal from "./App/ItemModal/ItemModal.jsx";
-import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext.js";
-import { Routes, Route } from "react-router-dom";
 import PageNotFound from "./App/PageNotFound/PageNotFound.jsx";
 import AddItemModal from "./App/AddItemModal/AddItemModal.jsx";
 import ConfirmationModal from "./App/ConfirmationModal/ConfirmationModal.jsx";
-import {
-  getClothingItems,
-  addClothingItem,
-  deleteClothingItem,
-} from "../utils/api.js";
 import RegisterModal from "./App/RegisterModal/RegisterModal.jsx";
 import ProtectedRoute from "./App/ProtectedRoute/ProtectedRoute.jsx";
 import LoginModal from "./App/LoginModal/LoginModal.jsx";
+import ItemModal from "./App/ItemModal/ItemModal.jsx";
 import * as auth from "../utils/auth.js";
-import useFormAndValidation from "../../hooks/useFormAndValidation.js";
-import {
-  LoggedInWrapper,
-  useIsLoggedIn,
-} from "./App/LoggedInWrapper/LoggedInWrapper.jsx";
+import * as api from "../utils/api.js";
+import * as apiWeather from "../utils/weatherAPI.js";
 import { getToken, setToken } from "../utils/token.js";
 
 const Profile = React.lazy(() => import("./App/Main/Profile/Profile.jsx"));
@@ -40,15 +32,16 @@ function App() {
   const [dayTime, setDayTime] = useState("day");
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
-  const [userData, setUserData] = useState({
+  const [currentUser, setCurrentUser] = useState({
     email: "",
     password: "",
   });
   const [isLoading, setIsLoading] = useState(true);
-  const { setIsLoggedIn } = useIsLoggedIn();
-  const { values } = useFormAndValidation();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Authentication
 
   useEffect(() => {
     const jwt = getToken();
@@ -61,16 +54,16 @@ function App() {
       .getUser(jwt)
       .then(({ email, password }) => {
         setIsLoggedIn(true);
-        setUserData({ email, password });
+        setCurrentUser({ email, password });
       })
       .catch((e) => console.error(e))
       .finally(() => setIsLoading(false));
   }, []);
 
   useEffect(() => {
-    getClothingItems()
+    api
+      .getClothingItems()
       .then((data) => {
-        console.log(data);
         setClothingItems(data);
       })
       .catch((err) => {
@@ -80,7 +73,8 @@ function App() {
 
   // Getting the initial data from the API.
   useEffect(() => {
-    getCityAndWeather(latitude, longitude, APIKey)
+    apiWeather
+      .getCityAndWeather(latitude, longitude, APIKey)
       .then((data) => {
         setCity(data.city);
         setFeeling(data.feeling);
@@ -92,9 +86,9 @@ function App() {
       });
   }, []);
 
-  // Made a separate useEffect, not to fetch other data, because of change in current temp unit
   useEffect(() => {
-    getCityAndWeather(latitude, longitude, APIKey)
+    apiWeather
+      .getCityAndWeather(latitude, longitude, APIKey)
       .then((data) => {
         setTemp(data.temperature[currentTemperatureUnit]);
       })
@@ -103,8 +97,6 @@ function App() {
       });
   }, [currentTemperatureUnit]);
 
-  // Managing toggle switch for degrees change
-
   function handleToggleSwitchChange() {
     currentTemperatureUnit === "F"
       ? setCurrentTemperatureUnit("C")
@@ -112,8 +104,6 @@ function App() {
   }
 
   // Managing Modal States
-
-  // deleted handlePopupstate, changed to setter function everywhere in the code
 
   function handleCardClick(card, name) {
     setModal(name);
@@ -124,7 +114,6 @@ function App() {
     setModal("");
   }
 
-  //this one duplicates the one above, essentially they have the same functionality
   function openConfirmationModal(card, name) {
     setModal(name);
     setSelectedCard(card);
@@ -133,7 +122,8 @@ function App() {
   // Delete card
 
   function onDelete(card) {
-    deleteClothingItem(card._id)
+    api
+      .deleteClothingItem(card._id)
       .then(() => {
         handleDeletingtheItem(card);
         handleCloseModal();
@@ -152,7 +142,8 @@ function App() {
   // Adding a card
 
   function onAddItem(values) {
-    addClothingItem(values)
+    api
+      .addClothingItem(values)
       .then((item) => {
         if (item) {
           handleAddItemSubmit(item);
@@ -183,7 +174,7 @@ function App() {
   const handleSignup = async (values) => {
     try {
       await auth.signup(values);
-      navigate("/login");
+      navigate("/");
     } catch (e) {
       console.error(e);
       throw e;
@@ -197,9 +188,9 @@ function App() {
       const data = await auth.signin(values);
       if (data.jwt) {
         setToken(data.jwt);
-        setUserData(data.user);
+        setCurrentUser(data.user);
         setIsLoggedIn(true);
-        const redirectPath = location.state?.from?.pathname || "/items";
+        const redirectPath = location.state?.from?.pathname || "/";
         navigate(redirectPath);
       }
     } catch (e) {
@@ -210,7 +201,7 @@ function App() {
   };
 
   return (
-    <LoggedInWrapper>
+    <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <CurrentTemperatureUnitContext.Provider
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -219,9 +210,10 @@ function App() {
             <div className="app__wrapper">
               <Header
                 city={city}
-                openModalButton={setModal}
+                setModal={setModal}
                 onHover={handleMouseEnter}
                 onHoverEnd={handleMouseLeave}
+                isLoggedIn={isLoggedIn}
               />
               <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
@@ -242,7 +234,7 @@ function App() {
                   <Route
                     path="/profile"
                     element={
-                      <ProtectedRoute>
+                      <ProtectedRoute isLoggedIn={isLoggedIn}>
                         <Profile
                           handleCardClick={handleCardClick}
                           name="image_modal"
@@ -307,7 +299,7 @@ function App() {
           </div>
         </CurrentTemperatureUnitContext.Provider>
       </div>
-    </LoggedInWrapper>
+    </CurrentUserContext.Provider>
   );
 }
 

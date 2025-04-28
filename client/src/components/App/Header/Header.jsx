@@ -4,13 +4,11 @@ import avatarTrue from "../../../assets/images/avatar_true.svg";
 import "./Header.css";
 import ToggleSwitch from "./ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom";
-import { useIsLoggedIn } from "../LoggedInWrapper/LoggedInWrapper";
 
-function Header({ city, openModalButton, onHover, onHoverEnd }) {
+function Header({ city, setModal, onHover, onHoverEnd, isLoggedIn }) {
   const [currentDate, setCurrentDate] = useState("");
   const [currentLocation, setCurrentLocation] = useState("Loading location...");
   const [isMobileMenuOpened, openMobileMenu] = useState("false");
-  const { isLoggedIn } = useIsLoggedIn();
 
   function toggleMobileMenu() {
     openMobileMenu((prevValue) => !prevValue);
@@ -43,28 +41,28 @@ function Header({ city, openModalButton, onHover, onHoverEnd }) {
       <button
         className="header__button-add-clothes"
         type="button"
-        onClick={() => openModalButton("login_modal")}
-        onMouseEnter={onHover}
-        onMouseLeave={onHoverEnd}
-      >
-        Sign In
-      </button>
-
-      <button
-        className="header__button-add-clothes"
-        type="button"
-        onClick={() => openModalButton("register_modal")}
+        onClick={() => setModal("register_modal")}
         onMouseEnter={onHover}
         onMouseLeave={onHoverEnd}
       >
         Sign Up
       </button>
 
+      <button
+        className="header__button-add-clothes"
+        type="button"
+        onClick={() => setModal("login_modal")}
+        onMouseEnter={onHover}
+        onMouseLeave={onHoverEnd}
+      >
+        Log In
+      </button>
+
       {isLoggedIn && (
         <button
           className="header__button-add-clothes"
           type="button"
-          onClick={() => openModalButton("add-item_modal")}
+          onClick={() => setModal("add-item_modal")}
           onMouseEnter={onHover}
           onMouseLeave={onHoverEnd}
         >
@@ -110,7 +108,7 @@ function Header({ city, openModalButton, onHover, onHoverEnd }) {
         <button
           className="header__button-add-clothes-mobile"
           type="button"
-          onClick={() => openModalButton("add-item_modal")}
+          onClick={() => setModal("add-item_modal")}
           onMouseEnter={onHover}
           onMouseLeave={onHoverEnd}
         >

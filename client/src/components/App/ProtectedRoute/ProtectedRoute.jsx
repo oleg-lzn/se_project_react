@@ -1,8 +1,6 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useIsLoggedIn } from "../LoggedInWrapper/LoggedInWrapper";
 
-const ProtectedRoute = ({ children, anonymous = false }) => {
-  const { isLoggedIn } = useIsLoggedIn();
+const ProtectedRoute = ({ children, anonymous = false, isLoggedIn }) => {
   const location = useLocation();
   const from = location.state?.from || "items";
 

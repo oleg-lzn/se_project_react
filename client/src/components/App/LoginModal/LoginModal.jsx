@@ -1,4 +1,3 @@
-import * as auth from "../../../utils/auth";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useFormAndValidation from "../../../../hooks/useFormAndValidation";
 import { useEffect } from "react";
@@ -21,14 +20,12 @@ function LoginModal({
     if (activeModal)
       resetForm(
         {
-          name_input: "",
-          url_input: "",
-          radio_input: "",
+          email: "",
+          password: "",
         },
         {
-          name_input: "",
-          url_input: "",
-          radio_input: "",
+          email: "",
+          password: "",
         },
         false
       );
@@ -55,37 +52,37 @@ function LoginModal({
         <label htmlFor="email" className="modal__lable">
           Email {""}
           <input
-            name="email_input"
+            name="email"
             className={`modal__input ${
-              errors.email_input ? "modal__input_type_error" : ""
+              errors.email ? "modal__input_type_error" : ""
             }`}
             type="email"
             placeholder="Email"
             required
             id="email"
-            value={values.email_input}
+            value={values.email}
             onChange={handleChange}
           />
         </label>
-        <span className="modal__input-error">{errors.email_input}</span>
+        <span className="modal__input-error">{errors.email}</span>
       </div>
       <div className="modal__form-group">
         <label htmlFor="password" className="modal__lable">
           Password {""}
           <input
-            name="password_input"
+            name="password"
             className={`modal__input ${
-              errors.password_input ? "modal__input_type_error" : ""
+              errors.password ? "modal__input_type_error" : ""
             }`}
             type="password"
             placeholder="Password"
             required
             id="password"
-            value={values.password_input}
+            value={values.password}
             onChange={handleChange}
           />
         </label>
-        <span className="modal__input-error">{errors.password_input}</span>
+        <span className="modal__input-error">{errors.password}</span>
       </div>
       <div className="login__signup">
         <Link to="/signup" className="signup__link">

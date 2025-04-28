@@ -1,5 +1,5 @@
 import { baseUrl } from "./constants";
-const token = localStorage.getItem("jwt");
+import { getToken } from "./token";
 
 export function _request(url, options) {
   return fetch(url, options).then((res) => checkApiResponse(res));
@@ -12,10 +12,18 @@ function checkApiResponse(res) {
 }
 
 export function getClothingItems() {
-  return _request(`${baseUrl}/items`, {});
+  const token = getToken();
+  return _request(`${baseUrl}/items`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
 }
 
-export function deleteClothingItem(id, token) {
+export function deleteClothingItem(id) {
+  const token = getToken();
   return _request(`${baseUrl}/items/${id}`, {
     method: "DELETE",
     headers: {
@@ -25,7 +33,8 @@ export function deleteClothingItem(id, token) {
   });
 }
 
-export function addClothingItem({ name_input, url_input, radio_input, token }) {
+export function addClothingItem({ name, avatar, radio }) {
+  const token = getToken();
   return _request(`${baseUrl}/items`, {
     method: "POST",
     headers: {
@@ -34,9 +43,9 @@ export function addClothingItem({ name_input, url_input, radio_input, token }) {
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
-      name: name_input,
-      weather: radio_input,
-      imageUrl: url_input,
+      name: name,
+      weather: radio,
+      imageUrl: avatar,
     }),
   }).then((newItem) => {
     console.log("Server Response", newItem);
