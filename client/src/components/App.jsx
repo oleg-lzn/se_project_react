@@ -34,6 +34,7 @@ function App() {
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [currentUser, setCurrentUser] = useState({
+    name: "",
     email: "",
     password: "",
     _id: "",
@@ -56,9 +57,9 @@ function App() {
 
     auth
       .getUser(jwt)
-      .then(({ email, password, _id, avatar }) => {
+      .then(({ name, email, password, _id, avatar }) => {
         setIsLoggedIn(true);
-        setCurrentUser({ email, password, _id, avatar });
+        setCurrentUser({ name, email, password, _id, avatar });
       })
       .catch((e) => console.error(e))
       .finally(() => setIsLoading(false));
@@ -248,6 +249,7 @@ function App() {
                           clothingItems={clothingItems}
                           setModal={setModal}
                           activeModal={activeModal}
+                          setIsLoggedIn={setIsLoggedIn}
                         />
                       </ProtectedRoute>
                     }

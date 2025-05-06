@@ -118,11 +118,11 @@ function RegisterModal({
             placeholder="Avatar URL"
             required
             id="avatarUrl"
-            value={values.avatar}
+            value={values.imageUrl}
             onChange={handleChange}
           />
         </label>
-        <span className="modal__input-error">{errors.avatar}</span>
+        <span className="modal__input-error">{errors.imageUrl}</span>
       </div>
       <div className="login__signup">
         <Link to="/signin" className="signup__link">
