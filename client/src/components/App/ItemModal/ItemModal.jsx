@@ -12,7 +12,7 @@ function ItemModal({
   card,
   openConfirmationModal,
 }) {
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
   const isOwn = card.owner === currentUser?._id;
 
   return (

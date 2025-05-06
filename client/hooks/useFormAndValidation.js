@@ -3,15 +3,15 @@ import { useCallback, useState } from "react";
 export function useFormAndValidation() {
   const [values, setValues] = useState({
     name: "",
-    avatar: "",
-    radio: "",
+    imageUrl: "",
+    weather: "",
     email: "",
     password: "",
   });
   const [errors, setErrors] = useState({
     name: "",
-    avatar: "",
-    radio: "",
+    imageUrl: "",
+    weather: "",
     email: "",
     password: "",
   });

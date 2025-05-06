@@ -19,6 +19,7 @@ import * as auth from "../utils/auth.js";
 import * as api from "../utils/api.js";
 import * as apiWeather from "../utils/weatherAPI.js";
 import { getToken, setToken } from "../utils/token.js";
+import EditProfileModal from "./App/EditProfileModal/EditProfileModal.jsx";
 
 const Profile = React.lazy(() => import("./App/Main/Profile/Profile.jsx"));
 
@@ -35,12 +36,15 @@ function App() {
   const [currentUser, setCurrentUser] = useState({
     email: "",
     password: "",
+    _id: "",
+    avatar: "",
   });
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Getting the initial data from the API.
   // Authentication
 
   useEffect(() => {
@@ -52,9 +56,9 @@ function App() {
 
     auth
       .getUser(jwt)
-      .then(({ email, password }) => {
+      .then(({ email, password, _id, avatar }) => {
         setIsLoggedIn(true);
-        setCurrentUser({ email, password });
+        setCurrentUser({ email, password, _id, avatar });
       })
       .catch((e) => console.error(e))
       .finally(() => setIsLoading(false));
@@ -71,7 +75,6 @@ function App() {
       });
   }, []);
 
-  // Getting the initial data from the API.
   useEffect(() => {
     apiWeather
       .getCityAndWeather(latitude, longitude, APIKey)
@@ -174,21 +177,24 @@ function App() {
   const handleSignup = async (values) => {
     try {
       await auth.signup(values);
+      handleCloseModal();
       navigate("/");
     } catch (e) {
       console.error(e);
       throw e;
     }
-    handleCloseModal();
   };
 
   const handleSignIn = async (values) => {
     if (!values.email || !values.password) return;
     try {
       const data = await auth.signin(values);
-      if (data.jwt) {
-        setToken(data.jwt);
-        setCurrentUser(data.user);
+      console.log({ data });
+      if (data.token) {
+        setToken(data.token);
+        const user = await auth.getUser(data.token);
+        console.log({ user });
+        setCurrentUser(user);
         setIsLoggedIn(true);
         const redirectPath = location.state?.from?.pathname || "/";
         navigate(redirectPath);
@@ -197,11 +203,12 @@ function App() {
       console.error(e);
       throw e;
     }
-    handleCloseModal();
   };
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <CurrentUserContext.Provider
+      value={{ currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn }}
+    >
       <div className="page">
         <CurrentTemperatureUnitContext.Provider
           value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -213,7 +220,6 @@ function App() {
                 setModal={setModal}
                 onHover={handleMouseEnter}
                 onHoverEnd={handleMouseLeave}
-                isLoggedIn={isLoggedIn}
               />
               <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
@@ -240,6 +246,8 @@ function App() {
                           name="image_modal"
                           addItemButton={setModal}
                           clothingItems={clothingItems}
+                          setModal={setModal}
+                          activeModal={activeModal}
                         />
                       </ProtectedRoute>
                     }
@@ -296,6 +304,15 @@ function App() {
               buttonText="Log in"
               handleSignIn={handleSignIn}
             ></LoginModal>
+            <EditProfileModal
+              title="Change Profile Data"
+              name="edit-profile_modal"
+              onClose={handleCloseModal}
+              activeModal={activeModal}
+              onHover={handleMouseEnter}
+              onHoverEnd={handleMouseLeave}
+              buttonText="Save changes"
+            ></EditProfileModal>
           </div>
         </CurrentTemperatureUnitContext.Provider>
       </div>

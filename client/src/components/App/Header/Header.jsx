@@ -1,14 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import imageLogo from "../../../assets/images/Logo.svg";
 import avatarTrue from "../../../assets/images/avatar_true.svg";
 import "./Header.css";
 import ToggleSwitch from "./ToggleSwitch/ToggleSwitch";
 import { Link } from "react-router-dom";
+import { CurrentUserContext } from "../../../../contexts/CurrentUserContext";
 
-function Header({ city, setModal, onHover, onHoverEnd, isLoggedIn }) {
+function Header({ city, setModal, onHover, onHoverEnd }) {
   const [currentDate, setCurrentDate] = useState("");
   const [currentLocation, setCurrentLocation] = useState("Loading location...");
   const [isMobileMenuOpened, openMobileMenu] = useState("false");
+
+  const { isLoggedIn } = useContext(CurrentUserContext);
 
   function toggleMobileMenu() {
     openMobileMenu((prevValue) => !prevValue);
@@ -38,25 +41,29 @@ function Header({ city, setModal, onHover, onHoverEnd, isLoggedIn }) {
         <ToggleSwitch />
       </div>
 
-      <button
-        className="header__button-add-clothes"
-        type="button"
-        onClick={() => setModal("register_modal")}
-        onMouseEnter={onHover}
-        onMouseLeave={onHoverEnd}
-      >
-        Sign Up
-      </button>
+      {!isLoggedIn && (
+        <button
+          className="header__button-add-clothes"
+          type="button"
+          onClick={() => setModal("register_modal")}
+          onMouseEnter={onHover}
+          onMouseLeave={onHoverEnd}
+        >
+          Sign Up
+        </button>
+      )}
 
-      <button
-        className="header__button-add-clothes"
-        type="button"
-        onClick={() => setModal("login_modal")}
-        onMouseEnter={onHover}
-        onMouseLeave={onHoverEnd}
-      >
-        Log In
-      </button>
+      {!isLoggedIn && (
+        <button
+          className="header__button-add-clothes"
+          type="button"
+          onClick={() => setModal("login_modal")}
+          onMouseEnter={onHover}
+          onMouseLeave={onHoverEnd}
+        >
+          Log In
+        </button>
+      )}
 
       {isLoggedIn && (
         <button

@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
 export const CurrentUserContext = createContext({
-  currentUser: "",
+  currentUser: {},
   setCurrentUser: () => {},
 });

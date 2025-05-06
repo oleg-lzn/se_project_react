@@ -34,6 +34,7 @@ function LoginModal({
   function handleSubmit(e) {
     e.preventDefault();
     handleSignIn(values);
+    onClose();
   }
 
   return (

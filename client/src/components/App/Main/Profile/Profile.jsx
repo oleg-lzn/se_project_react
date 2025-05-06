@@ -3,11 +3,18 @@ import SideBar from "./Sidebar/Sidebar";
 import ClothesSection from "./ClothesSection/ClothesSection";
 import "./Profile.css";
 
-function Profile({ handleCardClick, name, addItemButton, clothingItems }) {
+function Profile({
+  handleCardClick,
+  name,
+  addItemButton,
+  clothingItems,
+  activeModal,
+  setModal,
+}) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
-        <SideBar />
+        <SideBar activeModal={activeModal} setModal={setModal} />
       </section>
       <section className="profile__clothing-items">
         <ClothesSection

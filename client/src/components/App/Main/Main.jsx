@@ -3,6 +3,7 @@ import ItemCard from "./ItemCard/ItemCard";
 import WeatherCard from "./WeatherCard/WeatherCard";
 import "./Main.css";
 import { CurrentTemperatureUnitContext } from "../../../../contexts/CurrentTemperatureUnitContext";
+import { CurrentUserContext } from "../../../../contexts/CurrentUserContext";
 
 function Main({
   temp,
@@ -15,6 +16,7 @@ function Main({
   const [currentTemp, setCurrentTemp] = useState("Loading temperature..");
 
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
+  const { isLoggedIn } = useContext(CurrentUserContext);
 
   useEffect(() => {
     setCurrentTemp(temp);
@@ -28,19 +30,20 @@ function Main({
           Today is {Math.round(currentTemp)}&deg;{currentTemperatureUnit}/ You
           may want to wear
         </p>
-
-        <ul className="cards__list">
-          {clothingItems
-            .filter((item) => item.weather === feeling)
-            .map((item) => (
-              <ItemCard
-                key={item._id}
-                item={item}
-                onImageClick={handleCardClick}
-                name="image_modal"
-              />
-            ))}
-        </ul>
+        {isLoggedIn && (
+          <ul className="cards__list">
+            {clothingItems
+              .filter((item) => item.weather === feeling)
+              .map((item) => (
+                <ItemCard
+                  key={item._id}
+                  item={item}
+                  onImageClick={handleCardClick}
+                  name="image_modal"
+                />
+              ))}
+          </ul>
+        )}
       </section>
     </main>
   );

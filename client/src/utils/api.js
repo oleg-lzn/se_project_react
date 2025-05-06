@@ -33,7 +33,7 @@ export function deleteClothingItem(id) {
   });
 }
 
-export function addClothingItem({ name, avatar, radio }) {
+export function addClothingItem({ name, imageUrl, weather }) {
   const token = getToken();
   return _request(`${baseUrl}/items`, {
     method: "POST",
@@ -44,8 +44,8 @@ export function addClothingItem({ name, avatar, radio }) {
     },
     body: JSON.stringify({
       name: name,
-      weather: radio,
-      imageUrl: avatar,
+      weather: weather,
+      imageUrl: imageUrl,
     }),
   }).then((newItem) => {
     console.log("Server Response", newItem);

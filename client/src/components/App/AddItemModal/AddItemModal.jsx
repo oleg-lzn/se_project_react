@@ -17,22 +17,22 @@ function AddItemModal({
   const { resetForm, values, isValid, errors, handleChange } =
     useFormAndValidation();
 
-  useEffect(() => {
-    if (activeModal)
-      resetForm(
-        {
-          name_input: "",
-          url_input: "",
-          radio_input: "",
-        },
-        {
-          name_input: "",
-          url_input: "",
-          radio_input: "",
-        },
-        false
-      );
-  }, [activeModal, resetForm]);
+  // useEffect(() => {
+  //   if (activeModal)
+  //     resetForm(
+  //       {
+  //         name: "",
+  //         url: "",
+  //         radio: "",
+  //       },
+  //       {
+  //         name: "",
+  //         url: "",
+  //         radio: "",
+  //       },
+  //       false
+  //     );
+  // }, [activeModal, resetForm]);
 
   function handleSubmit(e) {
     e.preventDefault();

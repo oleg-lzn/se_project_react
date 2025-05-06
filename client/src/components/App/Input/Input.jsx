@@ -26,30 +26,30 @@ function Input({ values, errors, handleChange }) {
         <label htmlFor="imageUrl" className="modal__lable">
           Image* {""}
           <input
-            name="url"
+            name="imageUrl"
             className={`modal__input ${
-              errors.url ? "modal__input_type_error" : ""
+              errors.imageUrl ? "modal__input_type_error" : ""
             }`}
             type="url"
             placeholder="Image URL"
             required
             id="imageUrl"
-            value={values.url}
+            value={values.imageUrl}
             onChange={handleChange}
           />
         </label>
-        <span className="modal__input-error">{errors.url}</span>
+        <span className="modal__input-error">{errors.imageUrl}</span>
       </div>
       <fieldset className="modal__radio-buttons">
         <legend className="modal__legend">Select the weather type:</legend>
         <label htmlFor="hot" className="modal__label modal__label_type_radio">
           <input
-            name="radio"
+            name="weather"
             id="hot"
             type="radio"
             className="modal__radio-input"
             value="hot"
-            checked={values.radio === "hot"}
+            checked={values.weather === "hot"}
             onChange={handleChange}
             required
           />{" "}
@@ -57,12 +57,12 @@ function Input({ values, errors, handleChange }) {
         </label>
         <label htmlFor="warm" className="modal__label modal__label_type_radio">
           <input
-            name="radio"
+            name="weather"
             id="warm"
             type="radio"
             className="modal__radio-input"
             value="warm"
-            checked={values.radio === "warm"}
+            checked={values.weather === "warm"}
             onChange={handleChange}
             required
           />{" "}
@@ -70,18 +70,18 @@ function Input({ values, errors, handleChange }) {
         </label>
         <label htmlFor="cold" className="modal__label modal__label_type_radio">
           <input
-            name="radio"
+            name="weather"
             id="cold"
             type="radio"
             className="modal__radio-input"
             value="cold"
-            checked={values.radio === "cold"}
+            checked={values.weather === "cold"}
             onChange={handleChange}
             required
           />{" "}
           <span>Cold</span>
         </label>
-        <span className="modal__input-error">{errors.radio}</span>
+        <span className="modal__input-error">{errors.weather}</span>
       </fieldset>
     </>
   );
