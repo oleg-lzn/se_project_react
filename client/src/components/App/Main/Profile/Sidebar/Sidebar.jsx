@@ -5,10 +5,9 @@ import { CurrentUserContext } from "../../../../../../contexts/CurrentUserContex
 import { removeToken } from "../../../../../utils/token";
 import { useNavigate } from "react-router-dom";
 
-function SideBar({ setModal, setIsLoggedIn }) {
-  const { currentUser } = useContext(CurrentUserContext);
+function SideBar({ setModal }) {
+  const { currentUser, setIsLoggedIn } = useContext(CurrentUserContext);
   const navigate = useNavigate();
-  console.log({ currentUser });
 
   const handleLogOut = () => {
     removeToken();
@@ -24,8 +23,8 @@ function SideBar({ setModal, setIsLoggedIn }) {
         src={currentUser.avatar}
         alt="Avatar image"
       />
+      <p className="sidebar__name">{currentUser.name}</p>
       <div className="sidebar__text-data">
-        <p className="sidebar__name">{currentUser.name}</p>
         <button
           className="sidebar__change-data"
           type="button"

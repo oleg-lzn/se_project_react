@@ -10,7 +10,6 @@ function ClothesSection({
   clothingItems,
 }) {
   const { currentUser } = useContext(CurrentUserContext);
-  // console.log({ currentUser });
 
   return (
     <div className="clothes-section">
@@ -26,7 +25,6 @@ function ClothesSection({
       </div>
       <ul className="clothes-section_list">
         {clothingItems.map((item) => {
-          // console.log({ item });
           return (
             item.owner === currentUser._id && (
               <ItemCard

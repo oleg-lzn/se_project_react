@@ -10,16 +10,11 @@ function Profile({
   clothingItems,
   activeModal,
   setModal,
-  setIsLoggedIn,
 }) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
-        <SideBar
-          activeModal={activeModal}
-          setModal={setModal}
-          setIsLoggedIn={setIsLoggedIn}
-        />
+        <SideBar activeModal={activeModal} setModal={setModal} />
       </section>
       <section className="profile__clothing-items">
         <ClothesSection

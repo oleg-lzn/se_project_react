@@ -33,3 +33,15 @@ export async function getUser(token) {
     },
   });
 }
+
+export async function editUser(token, { name, avatar }) {
+  return _request(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name, avatar }),
+  });
+}

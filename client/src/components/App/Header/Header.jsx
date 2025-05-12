@@ -11,7 +11,7 @@ function Header({ city, setModal, onHover, onHoverEnd }) {
   const [currentLocation, setCurrentLocation] = useState("Loading location...");
   const [isMobileMenuOpened, openMobileMenu] = useState("false");
 
-  const { isLoggedIn } = useContext(CurrentUserContext);
+  const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
 
   function toggleMobileMenu() {
     openMobileMenu((prevValue) => !prevValue);
@@ -80,10 +80,10 @@ function Header({ city, setModal, onHover, onHoverEnd }) {
       {isLoggedIn && (
         <Link to="/profile" className="header__link">
           <div className="header__user">
-            <p className="header__profile-name">Oleg Luzenin</p>
+            <p className="header__profile-name">{currentUser.name}</p>
             <img
               className="header__avatar"
-              src={avatarTrue}
+              src={currentUser.avatar || avatarTrue}
               alt="Avatar image"
             />
           </div>
@@ -104,10 +104,10 @@ function Header({ city, setModal, onHover, onHoverEnd }) {
       >
         <Link to="/profile" className="header__link">
           <div className="header__user-mobile" onClick={toggleMobileMenu}>
-            <p className="header__profile-name">Oleg Luzenin</p>
+            <p className="header__profile-name">{currentUser.name}</p>
             <img
               className="header__avatar"
-              src={avatarTrue}
+              src={currentUser.avatar || avatarTrue}
               alt="Avatar image"
             />
           </div>

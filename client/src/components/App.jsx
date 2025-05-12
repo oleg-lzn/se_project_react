@@ -249,7 +249,6 @@ function App() {
                           clothingItems={clothingItems}
                           setModal={setModal}
                           activeModal={activeModal}
-                          setIsLoggedIn={setIsLoggedIn}
                         />
                       </ProtectedRoute>
                     }

@@ -33,7 +33,7 @@ function Main({
         {isLoggedIn && (
           <ul className="cards__list">
             {clothingItems
-              .filter((item) => item.weather === feeling)
+              // .filter((item) => item.weather === feeling)
               .map((item) => (
                 <ItemCard
                   key={item._id}

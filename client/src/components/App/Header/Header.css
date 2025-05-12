@@ -4,6 +4,12 @@
   padding: 32px 0 28px;
 }
 
+.header__avatar {
+  height: 56px;
+  width: 56px;
+  border-radius: 30px;
+}
+
 .header__button-add-clothes {
   margin-right: 20px;
   border: none;

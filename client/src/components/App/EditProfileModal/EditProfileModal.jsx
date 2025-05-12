@@ -1,12 +1,13 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useFormAndValidation from "../../../../hooks/useFormAndValidation";
 import { CurrentUserContext } from "../../../../contexts/CurrentUserContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import * as auth from "../../../utils/auth";
+import { getToken } from "../../../utils/token";
 
 function EditProfileModal({
   buttonText,
   title,
-  onAddItem,
   name,
   onClose,
   activeModal,
@@ -16,24 +17,34 @@ function EditProfileModal({
   const { resetForm, values, isValid, errors, handleChange } =
     useFormAndValidation();
 
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
-  //   useEffect(() => {
-  //     if (activeModal)
-  //       resetForm(
-  //         {
-  //           name_input: "",
-  //           url_input: "",
-  //           radio_input: "",
-  //         },
-  //       );
-  //   }, [activeModal, resetForm]);
+  useEffect(() => {
+    if (activeModal && currentUser) {
+      resetForm({
+        name: currentUser.name || "",
+        imageUrl: currentUser.avatar || "",
+      });
+    }
+  }, [activeModal, currentUser, resetForm]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (onAddItem) {
-      onAddItem(values);
-    }
+    const token = getToken();
+    const { name, imageUrl } = values;
+    auth
+      .editUser(token, { name, imageUrl })
+      .then((userData) => {
+        setCurrentUser(userData);
+        resetForm({
+          name: userData.name,
+          imageUrl: userData.avatar,
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    onClose();
   }
 
   return (
@@ -60,7 +71,7 @@ function EditProfileModal({
             placeholder="Name"
             required
             id="name"
-            value={currentUser.name}
+            value={values.name}
             onChange={handleChange}
           />
         </label>
@@ -70,7 +81,7 @@ function EditProfileModal({
         <label htmlFor="avatar" className="modal__lable">
           Avatar
           <input
-            name="avatar"
+            name="imageUrl"
             className={`modal__input ${
               errors.url ? "modal__input_type_error" : ""
             }`}
@@ -78,11 +89,11 @@ function EditProfileModal({
             placeholder="Image URL"
             required
             id="avatar"
-            value={currentUser.avatar}
+            value={values.imageUrl}
             onChange={handleChange}
           />
         </label>
-        <span className="modal__input-error">{errors.avatar}</span>
+        <span className="modal__input-error">{errors.imageUrl}</span>
       </div>
     </ModalWithForm>
   );
