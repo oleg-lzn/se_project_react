@@ -12,6 +12,7 @@ function Main({
   weather,
   dayTime,
   clothingItems,
+  onCardLike,
 }) {
   const [currentTemp, setCurrentTemp] = useState("Loading temperature..");
 
@@ -33,13 +34,14 @@ function Main({
         {isLoggedIn && (
           <ul className="cards__list">
             {clothingItems
-              // .filter((item) => item.weather === feeling)
+              .filter((item) => item.weather === feeling)
               .map((item) => (
                 <ItemCard
                   key={item._id}
                   item={item}
                   onImageClick={handleCardClick}
                   name="image_modal"
+                  onCardLike={onCardLike}
                 />
               ))}
           </ul>

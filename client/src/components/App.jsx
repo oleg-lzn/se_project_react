@@ -206,6 +206,27 @@ function App() {
     }
   };
 
+  const handleCardLike = ({ _id, isLiked }) => {
+    const token = getToken();
+    !isLiked
+      ? api
+          .addCardLike(_id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === _id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err))
+      : api
+          .removeCardLike(_id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === _id ? updatedCard : item))
+            );
+          })
+          .catch((err) => console.log(err));
+  };
+
   return (
     <CurrentUserContext.Provider
       value={{ currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn }}
@@ -235,6 +256,7 @@ function App() {
                         weather={weather}
                         dayTime={dayTime}
                         clothingItems={clothingItems}
+                        onCardLike={handleCardLike}
                       />
                     }
                   />

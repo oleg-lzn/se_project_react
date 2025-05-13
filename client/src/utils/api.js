@@ -52,3 +52,27 @@ export function addClothingItem({ name, imageUrl, weather }) {
     return newItem;
   });
 }
+
+export function addCardLike(id) {
+  const token = getToken();
+  return _request(`${baseUrl}/items/${id}/likes`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export function removeCardLike(id) {
+  const token = getToken();
+  return _request(`${baseUrl}/items/${id}/likes`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}

@@ -5,9 +5,19 @@
   width: 323px;
 }
 
-.card__name {
+.card__head {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
   position: absolute;
   top: 15px;
+  margin: 0;
+}
+
+.card__name {
+  /* position: absolute; */
+  /* top: 15px; */
   margin: 0;
   background: rgba(255, 255, 255, 1);
   border-radius: 4px;
@@ -17,7 +27,17 @@
   line-height: 20px;
   color: rgba(0, 0, 0, 0.6);
   padding: 2px 12px;
-  gap: 8px;
+  /* gap: 8px; */
+}
+
+.card__like-button {
+  height: 15px;
+  width: 18px;
+  margin: 0;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: background 0.3s ease;
 }
 
 .card__image {
