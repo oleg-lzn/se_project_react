@@ -11,7 +11,7 @@ const UnauthorizedError = require("../errors/UnauthorizedError");
 
 // Create user
 
-const createUser = (req, res) => {
+const createUser = (req, res, next) => {
   const { name, avatar, password, email } = req.body;
 
   User.findOne({ email })
@@ -44,7 +44,7 @@ const createUser = (req, res) => {
 
 // Login
 
-const login = (req, res) => {
+const login = (req, res, next) => {
   const { password, email } = req.body;
 
   User.findOne({ email })
@@ -70,7 +70,7 @@ const login = (req, res) => {
 
 // Get Current User
 
-const getCurrentUser = (req, res) => {
+const getCurrentUser = (req, res, next) => {
   const userId = req.user._id;
 
   User.findById(userId)
@@ -90,7 +90,7 @@ const getCurrentUser = (req, res) => {
 
 // Change the user
 
-const changeUser = (req, res) => {
+const changeUser = (req, res, next) => {
   const { name, avatar } = req.body;
   const userId = req.user._id;
   User.findByIdAndUpdate(
