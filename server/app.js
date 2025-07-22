@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const mainRouter = require("./routes/index");
 const { DB_URL, PORT } = require("./utils/config");
+const errorHandler = require("./middlewares/error-handler");
 
 const app = express();
 
@@ -19,6 +20,7 @@ mongoose
 app.use(cors());
 app.use(express.json());
 app.use("/", mainRouter);
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`server listening on port ${PORT}`);

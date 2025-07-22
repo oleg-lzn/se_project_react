@@ -1,23 +1,22 @@
 const clothingItem = require("../models/clothingItem");
 const serverStatuses = require("../utils/errors");
 
+const BadRequestError = require("../errors/BadRequestError");
+const NotFoundError = require("../errors/NotFoundError");
+const ForbiddenError = require("../errors/ForbiddenError");
+
 // Get all items
 
-const getItems = (_, res) => {
+const getItems = (_, res, next) => {
   clothingItem
     .find({})
     .then((items) => res.status(serverStatuses.success).send(items))
-    .catch((err) => {
-      console.error(err);
-      return res
-        .status(serverStatuses.serverError)
-        .send({ message: "An error has occurred on the server." });
-    });
+    .catch(next);
 };
 
 // Create Item
 
-const createItem = (req, res) => {
+const createItem = (req, res, next) => {
   const { name, weather, imageUrl } = req.body;
   const owner = req.user._id;
   clothingItem
@@ -27,112 +26,81 @@ const createItem = (req, res) => {
       return res.status(serverStatuses.created).send(item);
     })
     .catch((err) => {
-      console.error(err);
-      if (err.name === "ValidationError") {
-        return res
-          .status(serverStatuses.invalidData)
-          .send({ message: err.message });
-      }
-      return res
-        .status(serverStatuses.serverError)
-        .send({ message: "An error has occurred on the server." });
+      if (err.name === "ValidationError")
+        next(new BadRequestError("Invalid Data Provided."));
+      else next(err);
     });
 };
 
 // Delete by ID
 
-const deleteItem = (req, res) => {
+const deleteItem = (req, res, next) => {
   const { itemId } = req.params;
   const userId = req.user._id;
 
   clothingItem
     .findById(itemId)
-    .orFail(() => new Error("Item not found"))
+    .orFail(() => {
+      throw new NotFoundError("Item not found");
+    })
     .then((item) => {
-      if (item.owner.toString() !== userId) {
-        return res
-          .status(serverStatuses.forbidden)
-          .send({ message: "You are not allowed to delete this item." });
-      }
+      if (item.owner.toString() !== userId)
+        throw new ForbiddenError("You are not allowed to delete this item");
       return clothingItem
         .findByIdAndDelete(itemId)
-        .orFail(() => new Error("Item deletion not successful"))
+        .orFail(() => {
+          throw new NotFoundError("Item not found");
+        })
         .then((deletedItem) =>
           res.status(serverStatuses.success).send(deletedItem)
         );
     })
     .catch((err) => {
-      if (err.name === "CastError") {
-        return res
-          .status(serverStatuses.invalidData)
-          .send({ message: "Invalid item Id" });
-      }
-      if (err.message === "Item not found") {
-        return res
-          .status(serverStatuses.notFound)
-          .send({ message: "Item not found" });
-      }
-      return res
-        .status(serverStatuses.serverError)
-        .send({ message: "An error has occurred on the server." });
+      if (err.name === "CastError")
+        next(new BadRequestError("Invalid Item Id format"));
+      else next(err);
     });
 };
 
 // Likes
 
-const likeItem = (req, res) => {
+const likeItem = (req, res, next) => {
   clothingItem
     .findByIdAndUpdate(
       req.params.itemId,
       { $addToSet: { likes: req.user._id } },
       { new: true }
     )
-    .orFail(() => new Error("Like not successful"))
+    .orFail(() => {
+      throw new NotFoundError("Item not found");
+    })
     .then((like) => res.status(serverStatuses.success).send(like))
     .catch((err) => {
-      console.error(err);
-      if (err.message === "Like not successful") {
-        return res
-          .status(serverStatuses.notFound)
-          .send({ message: "Like not successful" });
-      }
-      if (err.name === "CastError") {
-        return res
-          .status(serverStatuses.invalidData)
-          .send({ message: "Invalid item ID format" });
-      }
-      return res
-        .status(serverStatuses.serverError)
-        .send({ message: "An error has occurred on the server." });
+      if (err.name === "CastError")
+        next(new BadRequestError("Invalid Item Id format"));
+      else next(err);
     });
 };
 
 // Dislike
 
-const dislikeItem = (req, res) => {
+const dislikeItem = (req, res, next) => {
   clothingItem
     .findByIdAndUpdate(
       req.params.itemId,
       { $pull: { likes: req.user._id } },
       { new: true }
     )
-    .orFail(() => new Error("dislike not successful"))
+    .orFail(() => {
+      throw new NotFoundError("Item not found");
+    })
     .then((dislike) => res.status(serverStatuses.success).send(dislike))
     .catch((err) => {
-      console.error(err);
-      if (err.message === "dislike not successful") {
-        return res
-          .status(serverStatuses.notFound)
-          .send({ message: "dislike not successful" });
-      }
       if (err.name === "CastError") {
-        return res
-          .status(serverStatuses.invalidData)
-          .send({ message: "Invalid item ID format" });
+        next(new BadRequestError("Invalid item ID format"));
+      } else {
+        next(err);
       }
-      return res
-        .status(serverStatuses.serverError)
-        .send({ message: "An error has occurred on the server." });
     });
 };
 
