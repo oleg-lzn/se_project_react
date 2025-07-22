@@ -20,7 +20,3 @@ yarn-error.log*
 # build
 dist/
 build/
-
-# lock files
-package-lock.json
-package.json
