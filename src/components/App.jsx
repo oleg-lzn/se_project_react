@@ -190,11 +190,11 @@ function App() {
     if (!values.email || !values.password) return;
     try {
       const data = await auth.signin(values);
-      console.log({ data });
+      // console.log({ data });
       if (data.token) {
         setToken(data.token);
         const user = await auth.getUser(data.token);
-        console.log({ user });
+        // console.log({ user });
         setCurrentUser(user);
         setIsLoggedIn(true);
         const redirectPath = location.state?.from?.pathname || "/";

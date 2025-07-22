@@ -78,7 +78,7 @@ const getCurrentUser = (req, res, next) => {
       throw new NotFoundError("User not found");
     })
     .then((user) => {
-      console.log(`User ${userId} found`);
+      console.log(`User ${userId} found, Authorization Successful`);
       return res.status(serverStatuses.success).send(user);
     })
     .catch((err) => {
