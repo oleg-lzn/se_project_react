@@ -4,8 +4,10 @@ const itemsRouter = require("./clothingItems");
 const serverStatuses = require("../utils/errors");
 const { login, createUser } = require("../controllers/users");
 
-router.post("/signin", login);
-router.post("/signup", createUser);
+const { validateUser, validateAuth } = require("../middlewares/validation");
+
+router.post("/signin", validateAuth, login);
+router.post("/signup", validateUser, createUser);
 
 router.use("/users", userRouter);
 router.use("/items", itemsRouter);

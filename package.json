@@ -13,9 +13,11 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "celebrate": "^15.0.3",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-router-dom": "^6.28.0"
+    "react-router-dom": "^6.28.0",
+    "validator": "^13.15.15"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
