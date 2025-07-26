@@ -1,19 +1,6 @@
 const { Joi, celebrate } = require("celebrate");
 const validator = require("validator");
 
-const auth = {
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  }),
-};
-
-const ID = {
-  body: Joi.object().keys({
-    id: Joi.string().required().length(24),
-  }),
-};
-
 const validateURL = (value, helpers) => {
   if (validator.isURL(value)) {
     return value;
