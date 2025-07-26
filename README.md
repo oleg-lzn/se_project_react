@@ -3,7 +3,7 @@
 **What to Wear** is a React-based front-end application designed to help users choose appropriate clothing based on current weather conditions. 🧥👕 It fetches weather data from the OpenWeather API and provides personalized recommendations for your wardrobe.
 
 Link to a backend repo
-https://github.com/oleg-lzn/WTWR/tree/main/server
+https://github.com/oleg-lzn/se_project_express
 
 ---
 
