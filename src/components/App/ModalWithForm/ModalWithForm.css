@@ -14,7 +14,7 @@
   font-weight: 700;
   text-align: center;
   line-height: 20px;
-  margin-top: 32px;
+  margin-top: 8px;
   color: rgba(255, 255, 255, 1);
   background: rgba(0, 0, 0, 1);
   border: none;
@@ -29,7 +29,37 @@
   animation: none;
   pointer-events: none;
 }
-
 .modal__button:not(.modal__button_disabled):hover {
   background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal__switch-login {
+  margin: 0;
+  padding: 0 0 0 12px;
+  color: black;
+  font-family: Cabinet Grotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.modal__switch-login_disabled {
+  animation: none;
+  pointer-events: none;
+  margin: 0;
+  padding: 0 0 0 12px;
+  color: rgba(0, 0, 0, 0.3);
+  font-family: Cabinet Grotesk, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+  border: none;
+  background: none;
+}
+
+.modal__switch-login:hover {
+  animation: interactive 0.4s ease forwards;
 }

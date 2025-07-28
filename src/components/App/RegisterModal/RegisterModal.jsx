@@ -1,7 +1,6 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useFormAndValidation from "../../../../hooks/useFormAndValidation";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 
 function RegisterModal({
   buttonText,
@@ -12,6 +11,7 @@ function RegisterModal({
   onHover,
   onHoverEnd,
   handleSignup,
+  setModal,
 }) {
   const { values, isValid, resetForm, handleChange, errors } =
     useFormAndValidation();
@@ -42,6 +42,7 @@ function RegisterModal({
 
   return (
     <ModalWithForm
+      setModal={setModal}
       title={title}
       buttonText={buttonText}
       name={name}
@@ -123,11 +124,6 @@ function RegisterModal({
           />
         </label>
         <span className="modal__input-error">{errors.imageUrl}</span>
-      </div>
-      <div className="login__signup">
-        <Link to="/signin" className="signup__link">
-          or Log In
-        </Link>
       </div>
     </ModalWithForm>
   );

@@ -5,6 +5,7 @@ import Input from "../Input/Input";
 import useFormAndValidation from "../../../../hooks/useFormAndValidation";
 
 function AddItemModal({
+  setModal,
   buttonText,
   title,
   onAddItem,
@@ -17,23 +18,6 @@ function AddItemModal({
   const { resetForm, values, isValid, errors, handleChange } =
     useFormAndValidation();
 
-  // useEffect(() => {
-  //   if (activeModal)
-  //     resetForm(
-  //       {
-  //         name: "",
-  //         url: "",
-  //         radio: "",
-  //       },
-  //       {
-  //         name: "",
-  //         url: "",
-  //         radio: "",
-  //       },
-  //       false
-  //     );
-  // }, [activeModal, resetForm]);
-
   function handleSubmit(e) {
     e.preventDefault();
     if (onAddItem) {
@@ -43,6 +27,7 @@ function AddItemModal({
 
   return (
     <ModalWithForm
+      setModal={setModal}
       title={title}
       buttonText={buttonText}
       name={name}

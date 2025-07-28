@@ -143,7 +143,17 @@ function App() {
     );
   }
 
-  // Adding a card
+  // Handling Submits
+
+  const handleSubmit = (request) => {
+    setIsLoading(true);
+    request()
+      .then(handleCloseModal)
+      .catch(console.error)
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   function onAddItem(values) {
     api
@@ -190,21 +200,22 @@ function App() {
     if (!values.email || !values.password) return;
     try {
       const data = await auth.signin(values);
-      // console.log({ data });
       if (data.token) {
         setToken(data.token);
         const user = await auth.getUser(data.token);
-        // console.log({ user });
         setCurrentUser(user);
         setIsLoggedIn(true);
         const redirectPath = location.state?.from?.pathname || "/";
         navigate(redirectPath);
+        handleCloseModal();
       }
     } catch (e) {
       console.error(e);
       throw e;
     }
   };
+
+  // Handling Likes
 
   const handleCardLike = ({ _id, isLiked }) => {
     const token = getToken();
@@ -224,7 +235,7 @@ function App() {
               cards.map((item) => (item._id === _id ? updatedCard : item))
             );
           })
-          .catch((err) => console.log(err));
+          .catch(console.error);
   };
 
   return (
@@ -271,6 +282,7 @@ function App() {
                           clothingItems={clothingItems}
                           setModal={setModal}
                           activeModal={activeModal}
+                          handleCardLike={handleCardLike}
                         />
                       </ProtectedRoute>
                     }
@@ -281,13 +293,15 @@ function App() {
             </div>
             <AddItemModal
               title="New Garment"
-              buttonText="Add New Item"
+              buttonText={isLoading ? "Adding new item..." : "Add New Item"}
               onClose={handleCloseModal}
               activeModal={activeModal}
               onHover={handleMouseEnter}
               onHoverEnd={handleMouseLeave}
               name="add-item_modal"
               onAddItem={onAddItem}
+              isLoading={isLoading}
+              setModal={setModal}
             ></AddItemModal>
             <ItemModal
               onClose={handleCloseModal}
@@ -306,6 +320,7 @@ function App() {
               onHover={handleMouseEnter}
               onHoverEnd={handleMouseLeave}
               onDelete={onDelete}
+              setModal={setModal}
             />
             <RegisterModal
               title="Sign Up"
@@ -314,27 +329,31 @@ function App() {
               activeModal={activeModal}
               onHover={handleMouseEnter}
               onHoverEnd={handleMouseLeave}
-              buttonText="Next"
+              buttonText={isLoading ? "Saving..." : "Next"}
               handleSignup={handleSignup}
+              isLoading={isLoading}
+              setModal={setModal}
             ></RegisterModal>
             <LoginModal
+              setModal={setModal}
               title="Log in"
               name="login_modal"
               onClose={handleCloseModal}
               activeModal={activeModal}
               onHover={handleMouseEnter}
               onHoverEnd={handleMouseLeave}
-              buttonText="Log in"
+              buttonText={isLoading ? "Logging In..." : "Log In"}
               handleSignIn={handleSignIn}
             ></LoginModal>
             <EditProfileModal
               title="Change Profile Data"
               name="edit-profile_modal"
               onClose={handleCloseModal}
+              setModal={setModal}
               activeModal={activeModal}
               onHover={handleMouseEnter}
               onHoverEnd={handleMouseLeave}
-              buttonText="Save changes"
+              buttonText={isLoading ? "Saving..." : "Save changes"}
             ></EditProfileModal>
           </div>
         </CurrentTemperatureUnitContext.Provider>

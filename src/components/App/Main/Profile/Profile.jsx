@@ -10,6 +10,7 @@ function Profile({
   clothingItems,
   activeModal,
   setModal,
+  handleCardLike,
 }) {
   return (
     <div className="profile">
@@ -22,6 +23,7 @@ function Profile({
           name={name}
           addItemButton={addItemButton}
           clothingItems={clothingItems}
+          handleCardLike={handleCardLike}
         />
       </section>
     </div>

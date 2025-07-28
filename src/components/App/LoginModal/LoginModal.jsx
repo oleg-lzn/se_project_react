@@ -1,7 +1,6 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import useFormAndValidation from "../../../../hooks/useFormAndValidation";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
 
 function LoginModal({
   buttonText,
@@ -12,6 +11,7 @@ function LoginModal({
   onHover,
   onHoverEnd,
   handleSignIn,
+  setModal,
 }) {
   const { values, isValid, resetForm, handleChange, errors } =
     useFormAndValidation();
@@ -34,11 +34,11 @@ function LoginModal({
   function handleSubmit(e) {
     e.preventDefault();
     handleSignIn(values);
-    onClose();
   }
 
   return (
     <ModalWithForm
+      setModal={setModal}
       title={title}
       buttonText={buttonText}
       name={name}
@@ -84,11 +84,6 @@ function LoginModal({
           />
         </label>
         <span className="modal__input-error">{errors.password}</span>
-      </div>
-      <div className="login__signup">
-        <Link to="/signup" className="signup__link">
-          or Sign Up
-        </Link>
       </div>
     </ModalWithForm>
   );

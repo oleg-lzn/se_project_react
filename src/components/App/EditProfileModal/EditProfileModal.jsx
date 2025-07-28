@@ -6,6 +6,7 @@ import * as auth from "../../../utils/auth";
 import { getToken } from "../../../utils/token";
 
 function EditProfileModal({
+  setModal,
   buttonText,
   title,
   name,
@@ -33,22 +34,23 @@ function EditProfileModal({
     const token = getToken();
     const { name, imageUrl } = values;
     auth
-      .editUser(token, { name, imageUrl })
+      .editUser(token, { name, avatar: imageUrl })
       .then((userData) => {
         setCurrentUser(userData);
         resetForm({
           name: userData.name,
           imageUrl: userData.avatar,
         });
+        onClose();
       })
       .catch((err) => {
         console.error(err);
       });
-    onClose();
   }
 
   return (
     <ModalWithForm
+      setModal={setModal}
       title={title}
       buttonText={buttonText}
       name={name}

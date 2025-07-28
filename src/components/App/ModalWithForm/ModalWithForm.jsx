@@ -1,8 +1,8 @@
 import "./ModalWithForm.css";
 import Modal from "../Modal/Modal";
-import Form from "../Form/Form";
 
 function ModalWithForm({
+  setModal,
   children,
   title,
   buttonText,
@@ -23,15 +23,47 @@ function ModalWithForm({
       onHoverEnd={onHoverEnd}
     >
       <h2 className="modal__name">{title}</h2>
-      <Form
-        onAddItem={onAddItem}
+      <form
+        className="modal__form"
         name={name}
-        onHover={onHover}
-        onHoverEnd={onHoverEnd}
-        buttonText={buttonText}
-        children={children}
-        isValid={isValid}
-      />
+        id="modal__form"
+        noValidate
+        onSubmit={onAddItem}
+      >
+        {children}
+        <div>
+          <button
+            className={
+              isValid ? "modal__button" : "modal__button modal__button_disabled"
+            }
+            type="submit"
+            onMouseEnter={onHover}
+            onMouseLeave={onHoverEnd}
+          >
+            {buttonText}
+          </button>
+          {(name === "login_modal" || name === "register_modal") && (
+            <button
+              type="button"
+              className={
+                !isValid
+                  ? "modal__switch-login"
+                  : "modal__switch-login_disabled"
+              }
+              onClick={() => {
+                onClose();
+                if (name === "login_modal") setModal("register_modal");
+                else setModal("login_modal");
+              }}
+              onMouseEnter={onHover}
+              onMouseLeave={onHoverEnd}
+              disabled={isValid}
+            >
+              {name === "login_modal" ? "or Sign Up" : "or Log In"}
+            </button>
+          )}
+        </div>
+      </form>
     </Modal>
   );
 }
