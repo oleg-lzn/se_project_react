@@ -188,8 +188,19 @@ function App() {
   const handleSignup = async (values) => {
     try {
       await auth.signup(values);
+      const data = await auth.signin({
+        email: values.email,
+        password: values.password,
+      });
+      if (data.token) {
+        setToken(data.token);
+        const user = await auth.getUser(data.token);
+        setCurrentUser(user);
+        setIsLoggedIn(true);
+        const redirectPath = location.state?.from?.pathname || "/";
+        navigate(redirectPath);
+      }
       handleCloseModal();
-      navigate("/");
     } catch (e) {
       console.error(e);
       throw e;
