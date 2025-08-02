@@ -2,7 +2,7 @@ import { baseUrl } from "./constants";
 import { _request } from "./api";
 
 export async function signup({ name, avatar, email, password }) {
-  return _request(`${baseUrl}`, {
+  return _request(`${baseUrl}/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -13,7 +13,7 @@ export async function signup({ name, avatar, email, password }) {
 }
 
 export async function signin({ email, password }) {
-  return _request(`${baseUrl}`, {
+  return _request(`${baseUrl}/signin`, {
     method: "POST",
     headers: {
       Accept: "application/json",
