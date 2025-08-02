@@ -3,14 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://github.com/oleg-lzn/se_project_react",
+  "homepage": "https://wtwr.euronatura.pt",
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && scp -r ./dist/* luzeninoleg2012@wtwr.euronatura.pt:/home/luzeninoleg2012/frontend"
   },
   "dependencies": {
     "celebrate": "^15.0.3",
