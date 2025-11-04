@@ -3,5 +3,5 @@ export const latitude = 52.5244;
 export const longitude = 13.4105;
 export const baseUrl =
   process.env.NODE_ENV === "production"
-    ? "https://api.wtwr.euronatura.pt"
+    ? process.env.REACT_APP_API_URL
     : "http://localhost:3001";
