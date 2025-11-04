@@ -20,6 +20,7 @@ import * as api from "../utils/api.js";
 import * as apiWeather from "../utils/weatherAPI.js";
 import { getToken, setToken } from "../utils/token.js";
 import EditProfileModal from "./App/EditProfileModal/EditProfileModal.jsx";
+import LoadingSpinner from "./App/LoadingSpinner/LoadingSpinner.jsx";
 
 const Profile = React.lazy(() => import("./App/Main/Profile/Profile.jsx"));
 
@@ -45,60 +46,58 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Getting the initial data from the API.
-  // Authentication
-
+  // Initial data loading - all requests in parallel
   useEffect(() => {
+    setIsLoading(true);
     const jwt = getToken();
-    if (!jwt) {
-      setIsLoading(false);
-      return;
+
+    const promises = [];
+
+    // Load user data if token exists
+    if (jwt) {
+      promises.push(
+        auth
+          .getUser(jwt)
+          .then(({ name, email, password, _id, avatar }) => {
+            setIsLoggedIn(true);
+            setCurrentUser({ name, email, password, _id, avatar });
+          })
+          .catch((e) => console.error(e))
+      );
     }
 
-    auth
-      .getUser(jwt)
-      .then(({ name, email, password, _id, avatar }) => {
-        setIsLoggedIn(true);
-        setCurrentUser({ name, email, password, _id, avatar });
-      })
-      .catch((e) => console.error(e))
-      .finally(() => setIsLoading(false));
-  }, []);
+    // Load clothing items
+    promises.push(
+      api
+        .getClothingItems()
+        .then((data) => {
+          setClothingItems(data);
+        })
+        .catch((err) => {
+          console.error("Error fetching data:", err);
+        })
+    );
 
-  useEffect(() => {
-    api
-      .getClothingItems()
-      .then((data) => {
-        setClothingItems(data);
-      })
-      .catch((err) => {
-        console.error("Error fetching data:", err);
-      });
-  }, []);
+    // Load weather data
+    promises.push(
+      apiWeather
+        .getCityAndWeather(latitude, longitude, APIKey)
+        .then((data) => {
+          setTemp(data.temperature[currentTemperatureUnit]);
+          setCity(data.city);
+          setFeeling(data.feeling);
+          setWeather(data.weather);
+          setDayTime(data.dayTime);
+        })
+        .catch((err) => {
+          console.error("Error fetching weather data:", err);
+        })
+    );
 
-  useEffect(() => {
-    apiWeather
-      .getCityAndWeather(latitude, longitude, APIKey)
-      .then((data) => {
-        setCity(data.city);
-        setFeeling(data.feeling);
-        setWeather(data.weather);
-        setDayTime(data.dayTime);
-      })
-      .catch((err) => {
-        console.error("Error fetching weather data:", err);
-      });
-  }, []);
-
-  useEffect(() => {
-    apiWeather
-      .getCityAndWeather(latitude, longitude, APIKey)
-      .then((data) => {
-        setTemp(data.temperature[currentTemperatureUnit]);
-      })
-      .catch((err) => {
-        console.error("Error fetching weather data:", err);
-      });
+    // Wait for all requests to complete
+    Promise.all(promises).finally(() => {
+      setIsLoading(false);
+    });
   }, [currentTemperatureUnit]);
 
   function handleToggleSwitchChange() {
@@ -126,6 +125,7 @@ function App() {
   // Delete card
 
   function onDelete(card) {
+    setIsLoading(true);
     api
       .deleteClothingItem(card._id)
       .then(() => {
@@ -134,6 +134,9 @@ function App() {
       })
       .catch((err) => {
         console.error("Error deleting the card", err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -156,6 +159,7 @@ function App() {
   };
 
   function onAddItem(values) {
+    setIsLoading(true);
     api
       .addClothingItem(values)
       .then((item) => {
@@ -166,11 +170,16 @@ function App() {
       })
       .catch((err) => {
         console.error("Error adding new element", err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   function handleAddItemSubmit(item) {
+    setIsLoading(true);
     setClothingItems([item, ...clothingItems]);
+    setIsLoading(false);
   }
 
   // Managing Button Animations
@@ -187,6 +196,7 @@ function App() {
 
   const handleSignup = async (values) => {
     try {
+      setIsLoading(true);
       await auth.signup(values);
       const data = await auth.signin({
         email: values.email,
@@ -204,12 +214,15 @@ function App() {
     } catch (e) {
       console.error(e);
       throw e;
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleSignIn = async (values) => {
     if (!values.email || !values.password) return;
     try {
+      setIsLoading(true);
       const data = await auth.signin(values);
       if (data.token) {
         setToken(data.token);
@@ -223,6 +236,8 @@ function App() {
     } catch (e) {
       console.error(e);
       throw e;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -249,6 +264,10 @@ function App() {
           .catch(console.error);
   };
 
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <CurrentUserContext.Provider
       value={{ currentUser, setCurrentUser, isLoggedIn, setIsLoggedIn }}
@@ -265,7 +284,7 @@ function App() {
                 onHover={handleMouseEnter}
                 onHoverEnd={handleMouseLeave}
               />
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<LoadingSpinner />}>
                 <Routes>
                   <Route path="*" element={<PageNotFound />} />
                   <Route
@@ -365,6 +384,8 @@ function App() {
               onHover={handleMouseEnter}
               onHoverEnd={handleMouseLeave}
               buttonText={isLoading ? "Saving..." : "Save changes"}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
             ></EditProfileModal>
           </div>
         </CurrentTemperatureUnitContext.Provider>

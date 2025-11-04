@@ -14,6 +14,8 @@ function EditProfileModal({
   activeModal,
   onHover,
   onHoverEnd,
+  isLoading,
+  setIsLoading,
 }) {
   const { resetForm, values, isValid, errors, handleChange } =
     useFormAndValidation();
@@ -31,6 +33,7 @@ function EditProfileModal({
 
   function handleSubmit(e) {
     e.preventDefault();
+    setIsLoading(true);
     const token = getToken();
     const { name, imageUrl } = values;
     auth
@@ -45,6 +48,9 @@ function EditProfileModal({
       })
       .catch((err) => {
         console.error(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
