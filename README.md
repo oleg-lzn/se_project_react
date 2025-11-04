@@ -4,7 +4,7 @@
 
 **WTWR (What to Wear)** is a full-stack web application that provides intelligent clothing recommendations based on real-time weather conditions. Built with React on the frontend and Express.js on the backend, this application demonstrates modern web development practices including user authentication, RESTful API design, and responsive UI/UX.
 
-🌐 **Live Demo:** [https://wtwr.euronatura.pt](https://wtwr.euronatura.pt)
+🌐 **Live Demo:** [https://se-project-react-two.vercel.app](https://se-project-react-two.vercel.app)
 
 ---
 
@@ -328,19 +328,10 @@ se_project_react/
 
 The application is deployed to:
 
-- **Frontend**: https://wtwr.euronatura.pt
-- **Backend API**: https://api.wtwr.euronatura.pt
+- **Frontend**: https://se-project-react-two.vercel.app (deployed on Vercel)
+- **Backend API**: Deployed on Render.com
 
 ### Deployment Configuration
-
-The application automatically detects the environment and uses the appropriate API URL:
-
-```javascript
-export const baseUrl =
-  process.env.NODE_ENV === "production"
-    ? "https://api.wtwr.euronatura.pt"
-    : "http://localhost:3001";
-```
 
 ### Build and Deploy
 
